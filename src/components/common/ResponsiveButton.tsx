@@ -36,7 +36,6 @@ export function ResponsiveButton({
   touchOptimized = true,
   className = '',
   disabled,
-  ...props
 }: ResponsiveButtonProps) {
   const baseClasses = `
     inline-flex items-center justify-center
