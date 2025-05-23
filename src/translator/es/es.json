@@ -1,0 +1,56 @@
+{
+    "profile-selection": {
+        "quien-esta-viendo-ahora": "¿Quién está viendo ahora?",
+        "sobre-mi": "Sobre mí",
+        "proyectos": "Proyectos",
+        "contacto": "Contacto"
+    },
+
+    "about-section": {
+        "sobre_mi": "Sobre mí",
+        "resumen_profesional": "Resumen profesional",
+        "res-1": "Desarrollador de software con más de 3 años de experiencia, especializado en JavaScript/TypeScript y React. Historial comprobado en proyectos de telecomunicaciones, incluyendo el desarrollo de IVR, CRM y sistemas de distribución de SMS personalizados para campañas de marketing. Experto en operadores de telecomunicaciones como Twilio, un sistema de números virtuales capaz de vincular llamadas web con clientes y servicios internos.",
+        "res-2": "Desarrollador de software con más de 3 años de experiencia, especializado en JavaScript/TypeScript y React. Historial comprobado en proyectos de telecomunicaciones, incluyendo el desarrollo de IVR, CRM y sistemas de distribución de SMS personalizados para campañas de marketing. Experto en operadores de telecomunicaciones como Twilio, un sistema de números virtuales capaz de vincular llamadas web con clientes y servicios internos.",
+        "res-2.1": "Liderazgo efectivo de equipos de desarrollo con resultados exitosos para clientes y empleadores. Apasionado por la programación y comprometido a entregar soluciones de alta calidad. Hábil en el desarrollo de endpoints backend para apoyar los requisitos del proyecto.",
+        "res-2.2": "Como Gerente de Proyecto, lideré con éxito un equipo de 6 en el desarrollo de soluciones e integraciones de telecomunicaciones que han sido efectivas y entregadas puntualmente a los clientes. Experto en manejar emergencias y delegar responsabilidades según lo requerido por los clientes."
+    },
+
+    "hobbies-section": {
+        "my hobbies": "Mis hobbies",
+        "hobbies": "Soy una persona proactiva y siempre busco formas de mejorar mis habilidades y conocimientos. Por ejemplo, me encanta leer y aprender sobre las últimas tendencias en programación. También soy paciente y perseverante, lo que me ha ayudado a superar desafíos complejos en proyectos anteriores. Además, mi experiencia tocando música clásica en ensambles de cuerdas me ha enseñado a trabajar en equipo y a comunicarme eficazmente con otros.",
+        "hobbies-1": "Habilidades interpersonales y de comunicación:",
+        "hobbies-1.1": "Lectura y aprendizaje continuo.",
+        "hobbies-1.2": "Disfruto leer y mantenerme al día con las últimas tendencias en programación, lo que me ayuda a adquirir nuevos conocimientos.",
+        "hobbies-2": "Paciencia y perseverancia:",
+        "hobbies-2.1": "He superado desafíos complejos en proyectos anteriores siendo paciente y perseverante.",
+        "hobbies-3": "Trabajo en equipo y comunicación:",
+        "hobbies-3.1": "Mi experiencia tocando música clásica en ensambles de cuerdas me ha enseñado a trabajar en equipo y a comunicarme eficazmente con otros.",
+        "hobbies-4": "Otras habilidades:",
+        "hobbies-4.1": "Disfruto pasar tiempo en áreas boscosas, lo que me ayuda a mantener un equilibrio entre mi vida personal y profesional, así como a fomentar mi creatividad y capacidad de reflexión."
+
+    },
+
+    "more-info": {
+        "info": "Más información"
+    },
+
+    "goals-section": {
+        "my goals": "Mis metas",
+        "goals": "Mi objetivo es seguir avanzando en mi carrera como desarrollador de software aprendiendo nuevas tecnologías y metodologías.",
+        "goals-1": "Aspiro a contribuir a proyectos de código abierto y colaborar con la comunidad de desarrollo en general.",
+        "goals-2": "Mi objetivo a largo plazo es convertirme en un desarrollador full-stack competente y trabajar en proyectos que impulsen un impacto positivo en la sociedad."
+    },
+
+    "contact-section": {
+        "contact": "Contactame",
+        "social-media": "Ponte en contacto",
+        "name": "Nombre",
+        "message": "Mensaje",
+        "send": "Enviar",
+        "send-message": "Mensaje enviado exitosamente",
+        "send-error": "Solo se pueden enviar mensajes cada 10 minutos",
+        "email": "Correo electrónico"
+    }
+
+
+}

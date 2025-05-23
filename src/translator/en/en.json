@@ -1,0 +1,53 @@
+{
+    "profile-selection": {
+      "quien-esta-viendo-ahora": "Who's watching now?",
+      "sobre-mi": "About me",
+      "proyectos": "Projects",
+      "contacto": "Contact"
+    },
+  
+    "about-section": {
+      "sobre_mi": "About me",
+      "resumen_profesional": "Professional summary",
+      "res-1": "A software developer with over 3 years of experience, specializing in JavaScript/TypeScript and React. Proven track record in telecommunications projects, including the development of IVR, CRM, and custom SMS distribution systems for marketing campaigns. Expertise in telecommunications carriers such as Twilio, a virtual number system capable of linking web calls with clients and internal services.",
+      "res-2": "A software developer with over 3 years of experience, specializing in JavaScript/TypeScript and React. Proven track record in telecommunications projects, including the development of IVR, CRM, and custom SMS distribution systems for marketing campaigns. Expertise in telecommunications carriers such as Twilio, a virtual number system capable of linking web calls with clients and internal services.",
+      "res-2.1": "Effective leadership of development teams with successful outcomes for clients and employers. Passionate about programming and committed to delivering high-quality solutions. Skilled in developing backend endpoints to support project requirements.",
+      "res-2.2": "As a Project Manager, successfully led a team of 6 in developing telecommunications solutions and integrations that have been effective and delivered promptly to clients. Adept at handling emergencies and delegating responsibilities as required by clients."
+    },
+  
+    "hobbies-section": {
+      "my hobbies": "My hobbies",
+      "hobbies": "I am a proactive person and always look for ways to improve my skills and knowledge. For example, I love reading and learning about the latest programming trends. I am also patient and perseverant, which has helped me overcome complex challenges in previous projects. Additionally, my experience playing classical music in string ensembles has taught me to work in a team and communicate effectively with others.",
+      "hobbies-1": "Interpersonal and communication skills:",
+      "hobbies-1.1": "I enjoy reading and keeping up to date with the latest programming trends, which helps me acquire new knowledge.",
+      "hobbies-1.2": "I enjoy reading and keeping up to date with the latest programming trends, which helps me acquire new knowledge.",
+      "hobbies-2": "Patience and perseverance:",
+      "hobbies-2.1": "I have overcome complex challenges in previous projects by being patient and persevering.",
+      "hobbies-3": "Teamwork and communication:",
+      "hobbies-3.1": "My experience playing classical music in string ensembles has taught me how to work in a team and communicate effectively with others.",
+      "hobbies-4": "Other skills:",
+      "hobbies-4.1": "I enjoy spending time in wooded areas, which helps me maintain a balance between my personal and professional life, as well as fostering my creativity and capacity for reflection."
+    },
+
+    "more-info": {
+      "info": "More information"
+    },
+  
+    "goals-section": {
+      "my goals": "My goals",
+      "goals": "I aim to continue advancing my career as a software developer by learning new technologies and methodologies.",
+      "goals-1": "I aspire to contribute to open-source projects and collaborate with the broader development community.",
+      "goals-2": "My long-term objective is to become a proficient full-stack developer and work on projects that drive positive societal impact."
+    },
+
+    "contact-section": {
+      "contact": "Contact me",
+      "social-media": "Get in touch",
+      "name": "Name",
+      "message": "Message",
+      "send": "Send",
+      "send-message": "Message sent successfully",
+      "send-error": "Messages can only be sent every 10 minutes",
+      "email": "Email"
+    }
+  }
