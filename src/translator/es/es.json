@@ -3,7 +3,8 @@
         "quien-esta-viendo-ahora": "¿Quién está viendo ahora?",
         "sobre-mi": "Sobre mí",
         "proyectos": "Proyectos",
-        "contacto": "Contacto"
+        "contacto": "Contacto",
+        "habilidades": "Habilidades"
     },
 
     "about-section": {
@@ -50,6 +51,9 @@
         "send-message": "Mensaje enviado exitosamente",
         "send-error": "Solo se pueden enviar mensajes cada 10 minutos",
         "email": "Correo electrónico"
+    },
+    "skill-section": {
+        "skills": "Habilidades"
     }
 
 

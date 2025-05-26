@@ -1,10 +1,11 @@
-import { Code, Mail, User } from "lucide-react";
+import { Code, Mail, User, BookOpenCheck  } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import logo from "../src/assets/logo2-removebg.png";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import { useAppStore, useLanguageStore } from "./store";
+
 
 interface ProfileOption {
   id: string;
@@ -39,6 +40,11 @@ export function ProfileSelector() {
       id: "contact",
       title: t("profile-selection.contacto"),
       icon: <Mail size={32} />,
+    },
+    {
+      id: "Skills",
+      title: t("profile-selection.habilidades"),
+      icon: <BookOpenCheck size={32} />,
     },
   ];
 

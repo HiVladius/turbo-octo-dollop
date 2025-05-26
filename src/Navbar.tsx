@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Code, Home, Mail, User } from "lucide-react";
+import { Code, Home, Mail, User, BookOpenCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import { useAppStore } from "./store";
 
@@ -41,8 +41,8 @@ export function Navbar() {
         <li>
           <Link
             to="/about"
-            className={`group relative transition-all duration-300 p-2 sm:p-3 rounded-full focus:outline-none focus:ring-1 focus:ring-white/20 active:scale-95 touch-manipulation ${
-              location.pathname === "/about"
+            className={`group relative transition-all duration-300 p-2 sm:p-3 rounded-full focus:outline-none focus:ring-1 focus:ring-white/20 active:scale-95 touch-manipulation 
+              ${location.pathname === "/about"
                 ? "text-red-500 bg-red-500/10"
                 : "text-white/60 hover:text-white hover:bg-white/10"
             }`}
@@ -60,8 +60,8 @@ export function Navbar() {
         <li>
           <Link
             to="/projects"
-            className={`group relative transition-all duration-300 p-2 sm:p-3 rounded-full focus:outline-none focus:ring-1 focus:ring-white/20 active:scale-95 touch-manipulation ${
-              location.pathname === "/projects"
+            className={`group relative transition-all duration-300 p-2 sm:p-3 rounded-full focus:outline-none focus:ring-1 focus:ring-white/20 active:scale-95 touch-manipulation 
+              ${location.pathname === "/projects"
                 ? "text-red-500 bg-red-500/10"
                 : "text-white/60 hover:text-white hover:bg-white/10"
             }`}
@@ -79,8 +79,8 @@ export function Navbar() {
         <li>
           <Link
             to="/contact"
-            className={`group relative transition-all duration-300 p-2 sm:p-3 rounded-full focus:outline-none focus:ring-1 focus:ring-white/20 active:scale-95 touch-manipulation ${
-              location.pathname === "/contact"
+            className={`group relative transition-all duration-300 p-2 sm:p-3 rounded-full focus:outline-none focus:ring-1 focus:ring-white/20 active:scale-95 touch-manipulation 
+              ${location.pathname === "/contact"
                 ? "text-red-500 bg-red-500/10"
                 : "text-white/60 hover:text-white hover:bg-white/10"
             }`}
@@ -89,6 +89,25 @@ export function Navbar() {
           >
             <motion.div {...shakeAnimation}>
               <Mail size={20} className="sm:w-6 sm:h-6" />
+            </motion.div>
+            <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+              Contacto
+            </span>
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/Skills"
+            className={`group relative transition-all duration-300 p-2 sm:p-3 rounded-full focus:outline-none focus:ring-1 focus:ring-white/20 active:scale-95 touch-manipulation 
+              ${location.pathname === "/Skills"
+                ? "text-red-500 bg-red-500/10"
+                : "text-white/60 hover:text-white hover:bg-white/10"
+            }`}
+            title="Contact"
+            onClick={() => handleNavigation("contact")}
+          >
+            <motion.div {...shakeAnimation}>
+              <BookOpenCheck size={20} className="sm:w-6 sm:h-6" />
             </motion.div>
             <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
               Contacto

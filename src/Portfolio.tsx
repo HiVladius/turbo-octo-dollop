@@ -6,6 +6,8 @@ import { ProfileSelector } from './ProfileSelector'
 import { AboutSection } from './components/about/AboutSection'
 import { ProjectsSection } from './components/projects/ProjectsSection'
 import { ContactSection } from './components/contact/ContactSection'
+import { Skills } from './components/skill/Skills'
+
 import { Navbar } from './Navbar'
 import { NotFound } from './NotFound'
 import { useAppStore, useStoreInitialization } from './store'
@@ -44,6 +46,7 @@ export const Portfolio = () => {
           <Route path="/about" element={<AboutSection />} />
           <Route path="/projects" element={<ProjectsSection />} />
           <Route path="/contact" element={<ContactSection />} />
+          <Route path="/skills" element={<Skills />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
