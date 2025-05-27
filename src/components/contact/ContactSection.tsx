@@ -1,7 +1,7 @@
 import { Github, Linkedin, Mail } from "lucide-react";
 import { toast, Toaster } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
-import { useContactStore, useAppStore } from "../../store";
+import { useAppStore, useContactStore } from "../../store";
 import { useEffect } from "react";
 import { ResponsiveButton } from "../common/ResponsiveButton";
 
@@ -19,7 +19,7 @@ const { VITE_EMAIL, VITE_EMAIL_PASS } = import.meta.env;
 
 export function ContactSection() {
   const { t } = useTranslation();
-  
+
   // Contact store
   const formData = useContactStore((state) => state.formData);
   const isSubmitting = useContactStore((state) => state.isSubmitting);
@@ -28,25 +28,45 @@ export function ContactSection() {
   const canSubmit = useContactStore((state) => state.canSubmit);
   const isFormValid = useContactStore((state) => state.isFormValid);
   const getFieldErrors = useContactStore((state) => state.getFieldErrors);
-  
+  const getFormattedTimeUntilNext = useContactStore((state) =>
+    state.getFormattedTimeUntilNext
+  );
+
   // App store
   const setCurrentSection = useAppStore((state) => state.setCurrentSection);
-  
+
   useEffect(() => {
-    setCurrentSection('contact');
-  }, [setCurrentSection]);  const commonInputClass =
+    setCurrentSection("contact");
+  }, [setCurrentSection]);
+  const commonInputClass =
     "w-full px-4 sm:px-5 py-3 sm:py-4 bg-black/50 rounded-xl border border-gray-800 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all duration-200 text-sm sm:text-base placeholder-gray-400 min-h-[44px] touch-manipulation";
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = event.target;
     updateField(name as keyof typeof formData, value);
   };
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!canSubmit()) {
-      toast.error(t("contact-section.send-error"));
+      const timeRemaining = getFormattedTimeUntilNext();
+      toast.error(
+        `⏰ Debes esperar ${timeRemaining} antes de enviar otro mensaje. La API tiene una restricción de 1 correo cada 5 minutos por IP.`,
+        {
+          duration: 6000,
+          icon: "🚫",
+          style: {
+            background: "#1f2937",
+            color: "#fff",
+            border: "1px solid #ef4444",
+            borderRadius: "12px",
+            fontSize: "14px",
+            maxWidth: "400px",
+          },
+        },
+      );
       return;
     }
 
@@ -66,7 +86,9 @@ export function ContactSection() {
       });
       toast.success(t("contact-section.send-message"));
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Error desconocido";
+      const errorMessage = error instanceof Error
+        ? error.message
+        : "Error desconocido";
       toast.error(errorMessage);
       console.error("Error al enviar el email", error);
     }
@@ -84,7 +106,8 @@ export function ContactSection() {
       >
         {t("contact-section.contact")}
       </h1>
-      <div className="w-full max-w-4xl mx-auto bg-zinc-900/50 rounded-xl p-4 sm:p-6 lg:p-8 shadow-xl">        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+      <div className="w-full max-w-4xl mx-auto bg-zinc-900/50 rounded-xl p-4 sm:p-6 lg:p-8 shadow-xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
           <div className="space-y-4 sm:space-y-6 lg:space-y-8 order-2 lg:order-1">
             <h2 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4">
               {t("contact-section.social-media")}
@@ -106,7 +129,10 @@ export function ContactSection() {
             ))}
           </div>
 
-          <form className="space-y-4 order-1 lg:order-2" onSubmit={handleSubmit}>
+          <form
+            className="space-y-4 order-1 lg:order-2"
+            onSubmit={handleSubmit}
+          >
             {[
               { id: "name", type: "text", label: t("contact-section.name") },
             ].map(({ id, type, label }) => (
@@ -180,8 +206,9 @@ export function ContactSection() {
                 error: {
                   duration: 5000,
                 },
-              }}            />
-            
+              }}
+            />
+
             <ResponsiveButton
               type="submit"
               disabled={!canSubmit()}

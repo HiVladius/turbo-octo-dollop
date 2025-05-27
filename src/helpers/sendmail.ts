@@ -1,7 +1,7 @@
 
 export interface MailData {
     from: string;
-    to: [string];
+    to: string;
     subject: string;
     html: string;
 }
@@ -12,11 +12,7 @@ export interface SendMailResponse {
     message: string;
 }
 
-// const mail = import.meta.env.VITE_EMAIL_SERVICE.toString();
-const mail = "http://localhost:4000/send-mail"
-
-console.log(`mail: ${mail}`);
-
+const mail = import.meta.env.VITE_EMAIL_SERVICE.toString();
 
 export const sendMail = async (mailData: MailData): Promise<SendMailResponse> => {
     try {

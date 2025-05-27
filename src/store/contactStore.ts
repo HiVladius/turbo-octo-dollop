@@ -2,6 +2,10 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { sendMail, MailData, SendMailResponse } from '../helpers/sendmail';
 
+
+const to = import.meta.env.VITE_EMAIL_TO?.toString()
+const from = import.meta.env.VITE_EMAIL_FROM?.toString() 
+
 interface ContactFormData {
   name: string;
   email: string;
@@ -25,9 +29,13 @@ interface ContactState {
   // Validation
   isFormValid: () => boolean;
   getFieldErrors: () => Partial<Record<keyof ContactFormData, string>>;
+  
+  // Cooldown helpers
+  getTimeUntilNextSubmission: () => number;
+  getFormattedTimeUntilNext: () => string;
 }
 
-const SUBMISSION_COOLDOWN = 10 * 60 * 1000; // 10 minutos en milisegundos
+const SUBMISSION_COOLDOWN = 5 * 60 * 1000; // 5 minutos en milisegundos
 
 export const useContactStore = create<ContactState>()(
   persist(
@@ -65,11 +73,10 @@ export const useContactStore = create<ContactState>()(
         return Date.now() - lastSubmissionTime > SUBMISSION_COOLDOWN;
       },
       
-      submitForm: async (additionalData) => {
+      submitForm: async () => {
         const state = get();
-        
-        if (!state.canSubmit()) {
-          throw new Error('Debes esperar 10 minutos entre envíos');
+          if (!state.canSubmit()) {
+          throw new Error('Debes esperar 5 minutos entre envíos');
         }
         
         if (!state.isFormValid()) {
@@ -80,8 +87,8 @@ export const useContactStore = create<ContactState>()(
         
         try {
           const mailData: MailData = {
-            from: additionalData?.from || 'default@example.com',
-            to: additionalData?.to || ['default@example.com'],
+            from:  from,
+            to: to,
             subject: `Nuevo mensaje de ${state.formData.name}`,
             html: `
               <h2>Nuevo mensaje desde el portafolio</h2>
@@ -129,10 +136,30 @@ export const useContactStore = create<ContactState>()(
         }
         
         if (formData.message.trim().length < 10) {
-          errors.message = 'El mensaje debe tener al menos 10 caracteres';
-        }
+          errors.message = 'El mensaje debe tener al menos 10 caracteres';        }
         
         return errors;
+      },
+      
+      getTimeUntilNextSubmission: () => {
+        const { lastSubmissionTime } = get();
+        if (!lastSubmissionTime) return 0;
+        const timeElapsed = Date.now() - lastSubmissionTime;
+        const timeRemaining = SUBMISSION_COOLDOWN - timeElapsed;
+        return Math.max(0, timeRemaining);
+      },
+      
+      getFormattedTimeUntilNext: () => {
+        const timeRemaining = get().getTimeUntilNextSubmission();
+        if (timeRemaining <= 0) return '';
+        
+        const minutes = Math.floor(timeRemaining / (60 * 1000));
+        const seconds = Math.floor((timeRemaining % (60 * 1000)) / 1000);
+        
+        if (minutes > 0) {
+          return `${minutes}m ${seconds}s`;
+        }
+        return `${seconds}s`;
       }
     }),
     {

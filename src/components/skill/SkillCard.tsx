@@ -17,6 +17,7 @@ const {
     mongodb,
     rust,
     cloude,
+    vue,
 } = icons;
 
 // Definición de niveles de habilidad
@@ -43,6 +44,7 @@ export const skillsData = [
     { name: "Vite", icon: vite, level: skillLevels.intermedio },
     { name: "Rust", icon: rust, level: skillLevels.iniciado },
     { name: "Google Cloud", icon: cloude, level: skillLevels.intermedio },
+    { name: "Vue.js", icon: vue, level: skillLevels.intermedio },
 ];
 
 interface SkillCardProps {
