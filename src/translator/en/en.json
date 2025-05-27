@@ -48,7 +48,7 @@
       "message": "Message",
       "send": "Send",
       "send-message": "Message sent successfully",
-      "send-error": "Messages can only be sent every 10 minutes",
+      "send-error": "Messages can only be sent every 5 minutes",
       "email": "Email"
     },
 

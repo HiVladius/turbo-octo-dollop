@@ -49,7 +49,7 @@
         "message": "Mensaje",
         "send": "Enviar",
         "send-message": "Mensaje enviado exitosamente",
-        "send-error": "Solo se pueden enviar mensajes cada 10 minutos",
+        "send-error": "Solo se pueden enviar mensajes cada 5 minutos",
         "email": "Correo electrónico"
     },
     "skill-section": {
