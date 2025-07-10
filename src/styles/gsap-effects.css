@@ -1,0 +1,205 @@
+/* Estilos específicos para efectos GSAP en ProfileSelector */
+
+/* Contenedor principal unificado */
+.main-container {
+  backdrop-filter: blur(20px);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden; /* Asegurar que nada se salga del contenedor */
+}
+
+.main-container:hover {
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(239, 68, 68, 0.2),
+    0 0 30px rgba(239, 68, 68, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.profile-card {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  overflow: hidden; /* Asegurar que las animaciones no se salgan de cada card */
+}
+
+.profile-card .card-inner {
+  overflow: hidden; /* Asegurar que los efectos internos no se salgan */
+}
+
+.profile-card .icon-container {
+  will-change: transform;
+  transform-origin: center center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* Limitar el rango de movimiento */
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Optimizaciones de rendimiento para animaciones */
+.profile-card,
+.icon-container,
+.card-inner,
+.main-container {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Mejoras para la interacción del mouse */
+.profile-card {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.profile-card .card-inner {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  will-change: background-color, transform;
+}
+
+.profile-card:hover .card-inner {
+  transform: translateY(-2px);
+}
+
+/* Efecto de hover mejorado para el diseño unificado */
+.profile-card:hover .icon-container {
+  box-shadow: 
+    0 0 0 1px rgba(239, 68, 68, 0.5),
+    0 8px 25px rgba(239, 68, 68, 0.2),
+    0 0 20px rgba(239, 68, 68, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Efectos de partículas para cada opción individual */
+.profile-card::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.15) 0%, transparent 70%);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 50%;
+}
+
+.profile-card:hover::after {
+  transform: translate(-50%, -50%) scale(1.5);
+}
+
+/* Animación de entrada para las cards - MEJORADA */
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.profile-card {
+  animation: cardFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+}
+
+.profile-card:nth-child(1) { animation-delay: 0.1s; }
+.profile-card:nth-child(2) { animation-delay: 0.2s; }
+.profile-card:nth-child(3) { animation-delay: 0.3s; }
+.profile-card:nth-child(4) { animation-delay: 0.4s; }
+
+/* Animación de entrada para el contenedor principal */
+@keyframes containerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.main-container {
+  animation: containerFadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Media queries para dispositivos móviles */
+@media (max-width: 768px) {
+  .main-container {
+    margin: 1rem;
+    padding: 1.5rem !important;
+  }
+  
+  .profile-card::after {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .profile-card:hover::after {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+/* Efecto de glow sutil para los iconos - ADAPTADO AL NUEVO DISEÑO */
+.icon-container {
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 4px 12px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.1s ease;
+}
+
+.profile-card:hover .icon-container {
+  box-shadow: 
+    0 0 0 1px rgba(239, 68, 68, 0.5),
+    0 8px 25px rgba(239, 68, 68, 0.2),
+    0 0 20px rgba(239, 68, 68, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Evitar interferencia con animaciones CSS en elementos GSAP */
+.profile-card .icon-container * {
+  transition: none !important;
+}
+
+/* Indicador visual de que la card está siendo animada */
+.profile-card.animating {
+  z-index: 100 !important;
+}
+
+.profile-card.animating .card-inner {
+  background-color: rgba(239, 68, 68, 0.1) !important;
+}
+
+/* Elementos decorativos animados */
+.main-container .absolute {
+  animation: float 3s ease-in-out infinite;
+}
+
+.main-container .absolute:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.main-container .absolute:nth-child(3) {
+  animation-delay: 1s;
+}
+
+@keyframes float {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translateY(0px);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translateY(-5px);
+  }
+}

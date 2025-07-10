@@ -42,7 +42,7 @@ export const skillsData = [
     { name: "React", icon: react, level: skillLevels.avanzado },
     { name: "Tailwind CSS", icon: tailwind, level: skillLevels.avanzado },
     { name: "Vite", icon: vite, level: skillLevels.intermedio },
-    { name: "Rust", icon: rust, level: skillLevels.iniciado },
+    { name: "Rust", icon: rust, level: skillLevels.intermedio },
     { name: "Google Cloud", icon: cloude, level: skillLevels.intermedio },
     { name: "Vue.js", icon: vue, level: skillLevels.intermedio },
 ];

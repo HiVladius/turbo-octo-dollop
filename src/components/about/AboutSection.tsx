@@ -28,13 +28,16 @@ export function AboutSection() {
     <div className="about-section min-h-screen bg-black text-white">
       <ResponsiveContainer className="flex flex-col min-h-screen bg-black text-white py-8 gap-4 sm:gap-6 lg:gap-8 items-center justify-center text-center">
         <div className="flex-1 w-full">
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-8 sm:mb-10 lg:mb-12 animate-fade-in text-center mt-4 sm:mt-6 lg:mt-9">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-8 sm:mb-10 lg:mb-12 animate-fade-in text-center mt-4 sm:mt-6 lg:mt-9 bg-gradient-to-r from-red-500 via-pink-500 to-yellow-400
+bg-clip-text text-transparent">
             {t("about-section.sobre_mi")}
-          </h1>          <ResponsiveGrid
+          </h1>
+          <ResponsiveGrid
             cols={{ base: 1, lg: 3 }}
             gap="xl"
             className="mx-auto justify-items-center gap-y-12 sm:gap-y-16 lg:gap-y-20"
-          ><div className="flex justify-center animate-fade-in mb-8 sm:mb-10 lg:mb-12">
+          >
+            <div className="flex justify-center animate-fade-in mb-8 sm:mb-10 lg:mb-12">
               <ProfileCard
                 onOpenModal={() => openModal("profile")}
                 onHoverChange={(hovered) => setHover("profile", hovered)}
@@ -52,7 +55,8 @@ export function AboutSection() {
                 secondLine={t("about-section.res-2.1")}
                 thirdLine={t("about-section.res-2.2")}
               />
-            </div>            <div className="flex justify-center mb-8 sm:mb-10 lg:mb-12">
+            </div>{" "}
+            <div className="flex justify-center mb-8 sm:mb-10 lg:mb-12">
               <ProfileCard
                 onOpenModal={() => openModal("hobbies")}
                 onHoverChange={(hovered) => setHover("hobbies", hovered)}
@@ -105,7 +109,8 @@ export function AboutSection() {
                   </>
                 }
               />
-            </div>            <div className="flex justify-center mb-8 sm:mb-10 lg:mb-12">
+            </div>{" "}
+            <div className="flex justify-center mb-8 sm:mb-10 lg:mb-12">
               <ProfileCard
                 onOpenModal={() => openModal("goals")}
                 onHoverChange={(hovered) => setHover("goals", hovered)}
