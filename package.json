@@ -7,7 +7,11 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "lint:fix": "eslint . --fix",
+    "type-check": "tsc --noEmit",
+    "preview": "vite preview",
+    "deploy": "npm run build && firebase deploy --only hosting",
+    "deploy:preview": "npm run build && firebase hosting:channel:deploy preview"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.15.1",
