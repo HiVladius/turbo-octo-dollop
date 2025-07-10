@@ -92,33 +92,12 @@ export const useGitHubStore = create<GitHubState>((set, get) => ({
             );
 
             // Buscar imagen en la raíz del repo
-            const imageCandidates = [
-              "logo.png", "banner.png", "preview.png", "cover.png", "screenshot.png"
-            ];
-            let image_url: string | null = null;
-            
-            for (const img of imageCandidates) {
-              try {
-                await octokit.request(
-                  "GET /repos/{owner}/{repo}/contents/{path}",
-                  {
-                    owner: repo.owner.login,
-                    repo: repo.name,
-                    path: img,
-                  }
-                );
-                image_url = `https://raw.githubusercontent.com/${repo.owner.login}/${repo.name}/main/${img}`;
-                break;
-              } catch {
-                // Si no existe, continúa buscando
-              }
-            }
 
             return {
               ...repo,
               topics: topicsResponse.data.names,
               description: repo.description ?? "",
-              image_url,
+              
             };
           } catch (error) {
             console.error(`Error fetching data for repo ${repo.name}:`, error);
@@ -205,3 +184,14 @@ export const useGitHubStore = create<GitHubState>((set, get) => ({
     set({ filteredRepos: filtered });
   }
 }));
+
+// Añadir declaración de tipo para import.meta.env si no existe ya en tu proyecto
+declare global {
+  interface ImportMetaEnv {
+    VITE_GITHUB_KEY: string;
+    // agrega aquí otras variables si las usas
+  }
+  interface ImportMeta {
+    readonly env: ImportMetaEnv;
+  }
+}
