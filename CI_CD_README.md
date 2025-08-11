@@ -2,57 +2,85 @@
 
 ## Overview
 
-Este proyecto utiliza GitHub Actions para automatizar el proceso de despliegue a Firebase Hosting.
+Este proyecto utiliza GitHub Actions para automatizar el proceso de testing, building y despliegue a Firebase Hosting. El pipeline incluye múltiples jobs para garantizar calidad y seguridad del código.
 
 ## Workflows Configurados
 
-### 1. `firebase-hosting-merge.yml`
-- **Trigger**: Push a la rama `main`
-- **Propósito**: Deployment automático al entorno de producción
+### 1. Pipeline Principal (`ci-cd.yml`)
+
+El workflow principal incluye los siguientes jobs:
+
+#### **Test Job**
+- **Trigger**: Push a `main`, `develop`, `feature/**` y Pull Requests
+- **Propósito**: Ejecutar tests, linting y build
 - **Acciones**:
-  - Instala dependencias
-  - Ejecuta build del proyecto
+  - Instala dependencias con `npm ci`
+  - Ejecuta linter (`npm run lint`)
+  - Ejecuta type checking (`npm run type-check`)
+  - Ejecuta tests (`npm run test`)
+  - Hace build del proyecto
+
+#### **Security Job**
+- **Trigger**: En paralelo con test job
+- **Propósito**: Verificar vulnerabilidades de seguridad
+- **Acciones**:
+  - Ejecuta `npm audit` para detectar vulnerabilidades
+  - Falla si encuentra vulnerabilidades críticas
+
+#### **Lighthouse Job**
+- **Trigger**: Solo en Pull Requests
+- **Propósito**: Análisis de performance
+- **Acciones**:
+  - Hace build del proyecto
+  - Sirve la aplicación localmente
+  - Ejecuta Lighthouse para análisis de performance
+
+#### **Deploy Job**
+- **Trigger**: Solo en push a la rama `main`
+- **Propósito**: Deploy automático a producción
+- **Requiere**: Test y Security jobs exitosos
+- **Acciones**:
+  - Hace build de producción
   - Despliega a Firebase Hosting (canal live)
 
-### 2. `firebase-hosting-pull-request.yml`
-- **Trigger**: Pull Request
-- **Propósito**: Preview deployment para revisión
+#### **Deploy Preview Job**
+- **Trigger**: Solo en Pull Requests a `main`
+- **Propósito**: Deploy de preview para revisión
+- **Requiere**: Test job exitoso
 - **Acciones**:
-  - Instala dependencias
-  - Ejecuta build del proyecto
-  - Crea un preview deployment
+  - Hace build del proyecto
+  - Crea preview deployment temporal (30 días)
   - Comenta en el PR con la URL del preview
-
-### 3. `ci-cd.yml`
-- **Trigger**: Push y Pull Request
-- **Propósito**: Quality assurance y testing
-- **Acciones**:
-  - Ejecuta linting
-  - Ejecuta type checking
-  - Ejecuta security audit
-  - Ejecuta performance check con Lighthouse
 
 ## Secrets Requeridos
 
 Para que los workflows funcionen correctamente, necesitas configurar estos secrets en GitHub:
 
 ### Repository Secrets
-1. `FIREBASE_SERVICE_ACCOUNT_PORFOLIO_VLAD`: Service account de Firebase
-2. `MY_EMAIL_SERVICE`: Servicio de email (ej: 'gmail')
-3. `MY_EMAIL_TO`: Email destino para contacto
-4. `MY_EMAIL_PASS`: Password/token del servicio de email
+1. **`FIREBASE_SERVICE_ACCOUNT_PORFOLIO_VLAD`**: Service account de Firebase (ya configurado)
+2. **`MY_EMAIL_SERVICE`**: Servicio de email para el formulario de contacto
+3. **`MY_EMAIL_TO`**: Email destino para recibir mensajes del formulario
+4. **`MY_EMAIL_PASS`**: Password/token del servicio de email
 
 ### Cómo configurar los secrets:
 1. Ve a tu repositorio en GitHub
-2. Settings → Secrets and variables → Actions
-3. Añade cada secret con su valor correspondiente
+2. Navega a **Settings → Secrets and variables → Actions**
+3. Clic en **New repository secret**
+4. Añade cada secret con su valor correspondiente
+
+## Project ID de Firebase
+
+- **Project ID**: `portfolio-896a3` (configurado automáticamente en el workflow)
+```yaml
+projectId: tu-project-id-aqui
+```
 
 ## Service Account de Firebase
 
 Para obtener el service account:
 
 1. Ve a [Firebase Console](https://console.firebase.google.com/)
-2. Selecciona tu proyecto `porfolio-vlad`
+2. Selecciona tu proyecto `portfolio-896a3`
 3. Project Settings → Service accounts
 4. Genera una nueva clave privada
 5. Copia el JSON completo y pégalo en el secret `FIREBASE_SERVICE_ACCOUNT_PORFOLIO_VLAD`
@@ -95,9 +123,9 @@ npm run deploy:preview
 
 ## URLs
 
-- **Producción**: https://porfolio-vlad.web.app
+- **Producción**: https://portfolio-896a3.web.app
 - **Preview**: Se genera automáticamente en cada PR
-- **Firebase Console**: https://console.firebase.google.com/project/porfolio-vlad
+- **Firebase Console**: https://console.firebase.google.com/project/portfolio-896a3
 
 ## Troubleshooting
 

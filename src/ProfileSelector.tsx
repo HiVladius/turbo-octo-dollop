@@ -2,7 +2,7 @@ import { BookOpenCheck, Code, Mail, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { JSX, useCallback, useEffect, useMemo, useRef } from "react";
 import { gsap } from "gsap";
 
 import logo from "../src/assets/logo2-removebg.png";

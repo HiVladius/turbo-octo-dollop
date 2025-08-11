@@ -1,4 +1,5 @@
 // Global types for the application
+import React, { JSX } from "react";
 
 export interface GitHubRepo {
   id: number;
