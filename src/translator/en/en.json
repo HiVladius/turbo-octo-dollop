@@ -27,7 +27,10 @@
       "hobbies-3": "Teamwork and communication:",
       "hobbies-3.1": "My experience playing classical music in string ensembles has taught me how to work in a team and communicate effectively with others.",
       "hobbies-4": "Other skills:",
-      "hobbies-4.1": "I enjoy spending time in wooded areas, which helps me maintain a balance between my personal and professional life, as well as fostering my creativity and capacity for reflection."
+      "hobbies-4.1": "I enjoy spending time in wooded areas, which helps me maintain a balance between my personal and professional life, as well as fostering my creativity and capacity for reflection.",
+      "hobbies-4.2": "I enjoy spending time in wooded areas, which helps me maintain a balance between my personal and professional life, as well as fostering my creativity and capacity for reflection.",
+      "hobbies-5": "I enjoy spending time in wooded areas, which helps me maintain a balance between my personal and professional life, as well as fostering my creativity and capacity for reflection.",
+      "hobbies-5.1": "I enjoy spending time in wooded areas, which helps me maintain a balance between my personal and professional life, as well as fostering my creativity and capacity for reflection."
     },
 
     "more-info": {
@@ -38,6 +41,8 @@
       "my goals": "My goals",
       "goals": "I aim to continue advancing my career as a software developer by learning new technologies and methodologies.",
       "goals-1": "I aspire to contribute to open-source projects and collaborate with the broader development community.",
+      "goals-1.1": "I aspire to contribute to open-source projects and collaborate with the broader development community.",
+      "goals-1.2": "I aspire to contribute to open-source projects and collaborate with the broader development community.",
       "goals-2": "My long-term objective is to become a proficient full-stack developer and work on projects that drive positive societal impact."
     },
 

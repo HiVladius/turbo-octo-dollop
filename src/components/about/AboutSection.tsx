@@ -76,18 +76,18 @@ bg-clip-text text-transparent">
                       {t("hobbies-section.hobbies-1")}
                     </h3>
                     <ul className="list-disc ml-6 space-y-1">
-                      <li>
-                        <strong>{t("hobbies-section.hobbies-1.1")}</strong>{" "}
-                        {t("hobbies-section.hobbies-1.2")}
-                      </li>
-                      <li>
-                        <strong>{t("hobbies-section.hobbies-2")}:</strong>{" "}
-                        {t("hobbies-section.hobbies-2.1")}
-                      </li>
-                      <li>
-                        <strong>{t("hobbies-section.hobbies-3")}</strong>{" "}
-                        {t("hobbies-section.hobbies-3.1")}
-                      </li>
+                      <br />
+                      <p>
+                        <strong>{t("hobbies-section.hobbies-1.1")}</strong>
+                      </p>
+                      {t("hobbies-section.hobbies-1.2")}
+
+                      <br />
+                      <p>
+                        <strong>{t("hobbies-section.hobbies-2")}</strong>
+                      </p>
+
+                      {t("hobbies-section.hobbies-2.1")}
                     </ul>
                   </>
                 }
@@ -97,14 +97,8 @@ bg-clip-text text-transparent">
                       {t("hobbies-section.hobbies-4")}
                     </h3>
                     <ul className="list-disc ml-6 space-y-1">
-                      <li>
-                        <strong>{t("hobbies-section.hobbies-4.1")}</strong>{" "}
-                        {t("hobbies-section.hobbies-4.2")}
-                      </li>
-                      <li>
-                        <strong>{t("hobbies-section.hobbies-5")}:</strong>{" "}
-                        {t("hobbies-section.hobbies-5.1")}
-                      </li>
+                      <strong>{t("hobbies-section.hobbies-4.1")}</strong>{" "}
+                      {t("hobbies-section.hobbies-4.2")}
                     </ul>
                   </>
                 }
@@ -130,31 +124,8 @@ bg-clip-text text-transparent">
                       {t("goals-section.goals-1")}
                     </h3>
                     <ul className="list-disc ml-6 space-y-1">
-                      <li>
-                        <strong>{t("goals-section.goals-1.1")}</strong>{" "}
-                        {t("goals-section.goals-1.2")}
-                      </li>
-                      <li>
-                        <strong>{t("goals-section.goals-2")}:</strong>{" "}
-                        {t("goals-section.goals-2.1")}
-                      </li>
-                    </ul>
-                  </>
-                }
-                thirdLine={
-                  <>
-                    <h3 className="text-lg font-semibold mb-2">
-                      {t("goals-section.goals-3")}
-                    </h3>
-                    <ul className="list-disc ml-6 space-y-1">
-                      <li>
-                        <strong>{t("goals-section.goals-3.1")}</strong>{" "}
-                        {t("goals-section.goals-3.2")}
-                      </li>
-                      <li>
-                        <strong>{t("goals-section.goals-4")}:</strong>{" "}
-                        {t("goals-section.goals-4.1")}
-                      </li>
+                      <strong>{t("goals-section.goals-1.1")}</strong>{" "}
+                      {t("goals-section.goals-1.2")}
                     </ul>
                   </>
                 }
