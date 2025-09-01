@@ -2,6 +2,7 @@ import { t } from "i18next";
 import { useEffect } from "react";
 import { useAppStore } from "../../store";
 import { SkillCard, skillsData } from './SkillCard';
+import { GitHubStyleProgress } from './GitHubStyleProgress';
 
 export const Skills = () => {
   // App store
@@ -27,13 +28,14 @@ export const Skills = () => {
           {t("skill-section.skills")}
         </h1>
         <p className="text-gray-400 text-sm sm:text-base mb-6">
-          Haz click en cada tarjeta para ver mi nivel de experiencia
+          {t("skill-section.details")}
         </p>
       </header>
       
+            
       <section aria-labelledby="skills-heading">
         <div 
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-5xl mx-auto"
           role="list"
           aria-label={t("skill-section.skills-list-label")}
         >
@@ -46,6 +48,12 @@ export const Skills = () => {
           ))}
         </div>
       </section>
+
+      {/* GitHub Style Progress Chart */}
+      <section className="mt-8 max-w-4xl mx-auto" aria-labelledby="coding-activity-heading">
+        <GitHubStyleProgress />
+      </section>
+
     </main>
   );
 };

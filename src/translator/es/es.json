@@ -79,7 +79,22 @@
         "experience-level": "Nivel de experiencia: {{percentage}}%",
         "technology-description": "Tecnología: {{name}}. Nivel de experiencia: {{level}} con {{percentage}}% de dominio.",
         "details-shown": "Información detallada mostrada.",
-        "press-for-details": "Presiona para ver más detalles."
+        "press-for-details": "Presiona para ver más detalles.",
+        "details": "Haz click en cada tarjeta para ver mi nivel de experiencia"
+    },
+    "github-progress": {
+        "coding-activity": "Actividad de Programación",
+        "total-contributions": "{{count}} contribuciones",
+        "in-last-year": "en el último año",
+        "no-activity": "Sin actividad",
+        "low-activity": "Baja actividad",
+        "medium-activity": "Actividad media",
+        "high-activity": "Alta actividad", 
+        "very-high-activity": "Muy alta actividad",
+        "less": "Menos",
+        "more": "Más",
+        "no-data": "No se pudieron cargar los datos de GitHub",
+        "real-data": "Datos reales de GitHub"
     },
     "projects-section": {
         "title": "Mis Proyectos de GitHub",

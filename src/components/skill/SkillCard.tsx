@@ -118,7 +118,7 @@ export const SkillCard: React.FC<SkillCardProps> = ({ skill, index }) => {
                 className="relative w-full h-full preserve-3d transform-style-preserve-3d"
             >
                 {/* Cara frontal */}
-                <div className="absolute w-full h-full backface-hidden flex flex-col items-center justify-center p-4 bg-gray-700 rounded-lg shadow-lg hover:bg-gray-600 transition-colors">
+                <div className="absolute w-full h-full backface-hidden flex flex-col items-center justify-center p-4 bg-zinc-800/90 backdrop-blur-sm border border-zinc-700/50 rounded-lg shadow-2xl shadow-red-500/10 hover:shadow-red-500/20 hover:bg-zinc-700/90 hover:border-red-500/30 transition-all duration-300">
                     <img
                         src={skill.icon}
                         alt=""
@@ -131,10 +131,10 @@ export const SkillCard: React.FC<SkillCardProps> = ({ skill, index }) => {
                 </div>
                 
                 {/* Cara trasera */}
-                <div className="absolute w-full h-full backface-hidden transform rotate-y-180 flex flex-col items-center justify-center p-4 bg-gray-700 rounded-lg shadow-lg">
+                <div className="absolute w-full h-full backface-hidden transform rotate-y-180 flex flex-col items-center justify-center p-4 bg-zinc-800/90 backdrop-blur-sm border border-zinc-700/50 rounded-lg shadow-2xl shadow-pink-500/10">
                     <span className="text-sm font-semibold mb-2">{skill.name}</span>
                     <div 
-                        className="w-full bg-gray-600 rounded-full h-4 mb-1"
+                        className="w-full bg-zinc-700/80 rounded-full h-4 mb-1"
                         role="progressbar"
                         aria-valuenow={skill.level.percentage}
                         aria-valuemin={0}
@@ -143,7 +143,7 @@ export const SkillCard: React.FC<SkillCardProps> = ({ skill, index }) => {
                     >
                         <div
                             ref={progressBarRef}
-                            className="bg-gradient-to-r from-red-500 via-pink-500 to-yellow-400 h-4 rounded-full transition-all duration-500"
+                            className="bg-gradient-to-r from-red-500 via-pink-500 to-yellow-400 h-4 rounded-full transition-all duration-500 shadow-lg shadow-red-500/20"
                             style={{ width: `${isFlipped ? skill.level.percentage : 0}%` }}
                         />
                     </div>

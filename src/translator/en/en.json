@@ -81,7 +81,23 @@
       "experience-level": "Experience level: {{percentage}}%",
       "technology-description": "Technology: {{name}}. Experience level: {{level}} with {{percentage}}% mastery.",
       "details-shown": "Detailed information shown.",
-      "press-for-details": "Press to see more details."
+      "press-for-details": "Press to see more details.",
+      "details": "Click on each card to see my experience level"
+    },
+
+    "github-progress": {
+      "coding-activity": "Coding Activity",
+      "total-contributions": "{{count}} contributions",
+      "in-last-year": "in the last year",
+      "no-activity": "No activity",
+      "low-activity": "Low activity",
+      "medium-activity": "Medium activity",
+      "high-activity": "High activity",
+      "very-high-activity": "Very high activity", 
+      "less": "Less",
+      "more": "More",
+      "no-data": "Could not load GitHub data",
+      "real-data": "Real GitHub data"
     },
 
     "projects-section": {

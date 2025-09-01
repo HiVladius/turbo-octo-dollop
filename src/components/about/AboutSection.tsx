@@ -75,20 +75,25 @@ bg-clip-text text-transparent">
                     <h3 className="text-lg font-semibold mb-2">
                       {t("hobbies-section.hobbies-1")}
                     </h3>
-                    <ul className="list-disc ml-6 space-y-1">
-                      <br />
-                      <p>
-                        <strong>{t("hobbies-section.hobbies-1.1")}</strong>
-                      </p>
-                      {t("hobbies-section.hobbies-1.2")}
-
-                      <br />
-                      <p>
-                        <strong>{t("hobbies-section.hobbies-2")}</strong>
-                      </p>
-
-                      {t("hobbies-section.hobbies-2.1")}
-                    </ul>
+                    <div className="space-y-3">
+                      <div>
+                        <p className="font-semibold">
+                          {t("hobbies-section.hobbies-1.1")}
+                        </p>
+                        <p className="text-sm">
+                          {t("hobbies-section.hobbies-1.2")}
+                        </p>
+                      </div>
+                      
+                      <div>
+                        <p className="font-semibold">
+                          {t("hobbies-section.hobbies-2")}
+                        </p>
+                        <p className="text-sm">
+                          {t("hobbies-section.hobbies-2.1")}
+                        </p>
+                      </div>
+                    </div>
                   </>
                 }
                 thirdLine={
@@ -96,10 +101,12 @@ bg-clip-text text-transparent">
                     <h3 className="text-lg font-semibold mb-2">
                       {t("hobbies-section.hobbies-4")}
                     </h3>
-                    <ul className="list-disc ml-6 space-y-1">
-                      <strong>{t("hobbies-section.hobbies-4.1")}</strong>{" "}
-                      {t("hobbies-section.hobbies-4.2")}
-                    </ul>
+                    <div className="space-y-2">
+                      <p>
+                        <span className="font-semibold">{t("hobbies-section.hobbies-4.1")}</span>{" "}
+                        {t("hobbies-section.hobbies-4.2")}
+                      </p>
+                    </div>
                   </>
                 }
               />
@@ -123,10 +130,12 @@ bg-clip-text text-transparent">
                     <h3 className="text-lg font-semibold mb-2">
                       {t("goals-section.goals-1")}
                     </h3>
-                    <ul className="list-disc ml-6 space-y-1">
-                      <strong>{t("goals-section.goals-1.1")}</strong>{" "}
-                      {t("goals-section.goals-1.2")}
-                    </ul>
+                    <div className="space-y-2">
+                      <p>
+                        <span className="font-semibold">{t("goals-section.goals-1.1")}</span>{" "}
+                        {t("goals-section.goals-1.2")}
+                      </p>
+                    </div>
                   </>
                 }
               />
