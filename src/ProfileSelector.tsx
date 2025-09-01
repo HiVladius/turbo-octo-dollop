@@ -2,7 +2,7 @@ import { BookOpenCheck, Code, Mail, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { JSX, useCallback, useEffect, useMemo, useRef } from "react";
+import { JSX, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { gsap } from "gsap";
 
 import logo from "../src/assets/logo2-removebg.png";
@@ -19,6 +19,9 @@ export function ProfileSelector() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
+  
+  // Estado para anuncios de screen reader
+  const [announceText, setAnnounceText] = useState<string>("");
 
   const currentLanguage = useLanguageStore((state) => state.currentLanguage);
   const toggleLanguage = useLanguageStore((state) => state.toggleLanguage);
@@ -221,9 +224,16 @@ export function ProfileSelector() {
   }, []);
 
   const handleNavigate = useCallback((profileId: string) => {
+    // Anunciar la navegación al screen reader
+    const profileTitle = profiles.find(p => p.id === profileId)?.title || profileId;
+    setAnnounceText(`Navegando a ${profileTitle}`);
+    
     setCurrentSection(profileId as any);
     navigate(`/${profileId}`);
-  }, [navigate, setCurrentSection]);
+    
+    // Limpiar anuncio después de un momento
+    setTimeout(() => setAnnounceText(""), 1000);
+  }, [navigate, setCurrentSection, profiles]);
 
   const logoVariants = useMemo(() => ({
     animate: { scale: 1.1 },
@@ -236,9 +246,10 @@ export function ProfileSelector() {
 
   return (
     <>
-      <div
-        ref={containerRef}
+      <section 
+        aria-labelledby="profile-selection-heading"
         className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-6 sm:py-8"
+        ref={containerRef}
       >
         <motion.div
           className="img"
@@ -246,12 +257,13 @@ export function ProfileSelector() {
         >
           <img
             src={logo}
-            alt="Logo"
+            alt="Logo de Vladimir Aquino - Desarrollador Full Stack"
             className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 mb-6 sm:mb-8"
           />
         </motion.div>
 
         <h1
+          id="profile-selection-heading"
           className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8 sm:mb-10 lg:mb-12 animate-fade-in flex items-center gap-2 text-center
     bg-gradient-to-r from-red-500 via-pink-500 to-yellow-400
     bg-clip-text text-transparent"
@@ -263,20 +275,48 @@ export function ProfileSelector() {
           {t("profile-selection.quien-esta-viendo-ahora")}
         </h1>
 
-        {/* Grid container mejorado para el efecto GSAP - DENTRO DE UN SOLO RECUADRO */}
-        <div className="main-container relative bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-lg border border-gray-600/50 rounded-3xl p-8 sm:p-10 lg:p-12 shadow-2xl max-w-6xl w-full overflow-hidden">
+        {/* Live region para anuncios de screen reader */}
+        <div 
+          aria-live="polite" 
+          aria-atomic="true" 
+          className="sr-only"
+        >
+          {announceText}
+        </div>
+
+        {/* Navegación de perfiles profesionales */}
+        <nav 
+          aria-labelledby="profile-nav-heading"
+          className="main-container relative bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-lg border border-gray-600/50 rounded-3xl p-8 sm:p-10 lg:p-12 shadow-2xl max-w-6xl w-full overflow-hidden"
+        >
+          <h2 id="profile-nav-heading" className="sr-only">
+            Selecciona un área para explorar
+          </h2>
+          
           {/* Efecto de brillo de fondo */}
           <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 via-pink-500/5 to-yellow-400/5 rounded-3xl" />
 
-          {/* Grid de opciones */}
-          <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10">
+          {/* Grid de opciones - convertido a lista semántica */}
+          <ul 
+            role="list"
+            className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10"
+          >
             {profiles.map((profile) => (
-              <div
-                key={profile.id}
-                className="profile-card group relative cursor-pointer transition-all duration-300 will-change-transform"
-                onClick={() => handleNavigate(profile.id)}
-                style={{ zIndex: 1 }}
-              >
+              <li key={profile.id}>
+                <button
+                  type="button"
+                  className="profile-card group relative cursor-pointer transition-all duration-300 will-change-transform w-full text-left focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-black rounded-xl"
+                  onClick={() => handleNavigate(profile.id)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleNavigate(profile.id);
+                    }
+                  }}
+                  aria-label={`Ir a la sección ${profile.title}`}
+                  aria-describedby={`${profile.id}-description`}
+                  style={{ zIndex: 1 }}
+                >
                 {/* Card container simplificado - SIN RECUADRO INDIVIDUAL */}
                 <div className="card-inner flex flex-col items-center p-4 sm:p-6 rounded-xl hover:bg-gray-800/30 transition-all duration-300 min-h-[180px] sm:min-h-[200px] relative overflow-hidden">
                   {/* Background gradient effect */}
@@ -293,13 +333,19 @@ export function ProfileSelector() {
                   <span className="relative z-10 text-gray-400 group-hover:text-white text-sm sm:text-base lg:text-lg font-medium text-center transition-colors duration-300 leading-tight">
                     {profile.title}
                   </span>
+                  
+                  {/* Descripción oculta para screen readers */}
+                  <span id={`${profile.id}-description`} className="sr-only">
+                    Navegar a la sección {profile.title}. Presiona Enter para continuar.
+                  </span>
 
                   {/* Efecto de brillo en hover */}
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out rounded-xl" />
                 </div>
-              </div>
+                </button>
+              </li>
             ))}
-          </div>
+          </ul>
 
           {/* Decorative elements */}
           <div className="absolute top-4 right-4 w-2 h-2 bg-red-500/30 rounded-full">
@@ -308,33 +354,87 @@ export function ProfileSelector() {
           </div>
           <div className="absolute top-1/2 left-4 w-1.5 h-1.5 bg-yellow-400/20 rounded-full">
           </div>
-        </div>
-      </div>
+        </nav>
+      </section>
 
-      {/* Language toggle mejorado */}
+      {/* Language toggle mejorado con accesibilidad */}
       <motion.div
         className="fixed bottom-6 right-6 z-50"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.5, duration: 0.3 }}
       >
-        <label className="relative inline-flex items-center cursor-pointer bg-black/90 backdrop-blur-md rounded-full px-4 py-3 border border-gray-600/50 hover:border-red-500/50 transition-all duration-300 touch-manipulation shadow-lg">
-          <input
-            type="checkbox"
-            className="sr-only peer"
-            checked={currentLanguage === "en"}
-            onChange={toggleLanguage}
-          />
-          <div className="w-12 h-6 sm:w-14 sm:h-7 bg-gray-700 rounded-full peer-checked:bg-gradient-to-r peer-checked:from-red-500 peer-checked:to-pink-500 
-        peer-focus:outline-none peer-focus:ring-0
-        after:content-[''] after:absolute after:top-[14px] after:left-[18px]
-        after:bg-white after:border-gray-600 after:border after:rounded-full 
-        after:h-5 after:w-5 sm:after:h-6 sm:after:w-6 after:transition-all duration-300 peer-checked:after:translate-x-5 sm:peer-checked:after:translate-x-6 after:shadow-md" />
-          <span className="ml-4 text-sm sm:text-base font-medium  select-none bg-gradient-to-r from-red-500 via-pink-500 to-yellow-400
-bg-clip-text text-transparent text-center">
-            ES / EN
-          </span>
-        </label>
+        <fieldset className="relative bg-black/90 backdrop-blur-md rounded-full px-4 py-3 border border-gray-600/50 hover:border-red-500/50 transition-all duration-300 shadow-lg">
+          <legend className="sr-only">Seleccionar idioma</legend>
+          
+          <button
+            type="button"
+            role="switch"
+            aria-checked={currentLanguage === "en"}
+            aria-labelledby="language-description"
+            aria-describedby="language-help"
+            className="relative inline-flex items-center cursor-pointer touch-manipulation focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-black rounded-full"
+            onClick={() => {
+              toggleLanguage();
+              setAnnounceText(
+                currentLanguage === "en" 
+                  ? t("language-toggle.changed-to-spanish")
+                  : t("language-toggle.changed-to-english")
+              );
+              setTimeout(() => setAnnounceText(""), 1500);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleLanguage();
+                setAnnounceText(
+                  currentLanguage === "en" 
+                    ? t("language-toggle.changed-to-spanish")
+                    : t("language-toggle.changed-to-english")
+                );
+                setTimeout(() => setAnnounceText(""), 1500);
+              }
+            }}
+          >
+            <span className="sr-only">
+              {currentLanguage === "en" ? t("language-toggle.switch-to-spanish") : t("language-toggle.switch-to-english")}
+            </span>
+            
+            {/* Switch container controlado por estado */}
+            <div 
+              className={`relative w-12 h-6 sm:w-14 sm:h-7 rounded-full transition-all duration-300 ${
+                currentLanguage === "en" 
+                  ? "bg-gradient-to-r from-red-500 to-pink-500" 
+                  : "bg-gray-700"
+              }`}
+            >
+              {/* Círculo del switch */}
+              <div 
+                className={`absolute top-0.5 w-5 h-5 sm:w-6 sm:h-6 
+                           bg-white border-2 rounded-full shadow-lg
+                           transition-all duration-300 ease-in-out ${
+                  currentLanguage === "en" 
+                    ? "left-6 sm:left-7 border-red-200" 
+                    : "left-0.5 border-gray-300"
+                }`}
+              >
+              </div>
+            </div>
+            
+            <span 
+              id="language-description"
+              className="ml-4 text-sm sm:text-base font-medium select-none bg-gradient-to-r from-red-500 via-pink-500 to-yellow-400
+bg-clip-text text-transparent text-center transition-all duration-300"
+              aria-hidden="true"
+            >
+              {currentLanguage === "en" ? "EN" : "ES"}
+            </span>
+            
+            <span id="language-help" className="sr-only">
+              {t("language-toggle.press-to-switch")}
+            </span>
+          </button>
+        </fieldset>
       </motion.div>
     </>
   );

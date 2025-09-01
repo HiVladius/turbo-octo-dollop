@@ -57,14 +57,16 @@ export const Portfolio = () => {
         showContent ? 'opacity-100' : 'opacity-0'
       }`}>
         <Navbar />
-        <Routes>
-          <Route path="/" element={<ProfileSelector />} />
-          <Route path="/about" element={<AboutSection />} />
-          <Route path="/projects" element={<ProjectsSection />} />
-          <Route path="/contact" element={<ContactSection />} />
-          <Route path="/skills" element={<Skills />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <main id="main-content" role="main" tabIndex={-1}>
+          <Routes>
+            <Route path="/" element={<ProfileSelector />} />
+            <Route path="/about" element={<AboutSection />} />
+            <Route path="/projects" element={<ProjectsSection />} />
+            <Route path="/contact" element={<ContactSection />} />
+            <Route path="/skills" element={<Skills />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
       </div>
     </Router>
   )

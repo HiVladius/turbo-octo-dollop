@@ -1,8 +1,13 @@
 {
     "profile-selection": {
       "quien-esta-viendo-ahora": "Who's watching now?",
-      "sobre-mi": "About me",
-      "proyectos": "Projects",
+      "sobre-mi": "About me",    "language-toggle": {
+      "changed-to-spanish": "Language changed to Español",
+      "changed-to-english": "Language changed to English",
+      "switch-to-spanish": "Cambiar a Español", 
+      "switch-to-english": "Switch to English",
+      "press-to-switch": "Press to switch between Spanish and English"
+    },  "proyectos": "Projects",
       "contacto": "Contact",
       "habilidades": "Skills"
     },
@@ -54,10 +59,89 @@
       "send": "Send",
       "send-message": "Message sent successfully",
       "send-error": "Messages can only be sent every 5 minutes",
-      "email": "Email"
+      "email": "Email",
+      "name-placeholder": "Your full name",
+      "email-placeholder": "your@email.com",
+      "message-placeholder": "Write your message here... (minimum 10 characters)",
+      "sending": "Sending message, please wait",
+      "send-help": "Send contact message",
+      "unknown-error": "Unknown error"
     },
 
     "skill-section": {
+      "skills": "Skills",
+      "skills-description": "Click on each card to see my experience level",
+      "skills-list-label": "Technical skills list",
+      "level-beginner": "Beginner",
+      "level-intermediate": "Intermediate",
+      "level-advanced": "Advanced", 
+      "level-senior": "Senior",
+      "level-details": "Press to see details",
+      "level-info": "Level {{level}} {{percentage}}%",
+      "experience-level": "Experience level: {{percentage}}%",
+      "technology-description": "Technology: {{name}}. Experience level: {{level}} with {{percentage}}% mastery.",
+      "details-shown": "Detailed information shown.",
+      "press-for-details": "Press to see more details."
+    },
+
+    "projects-section": {
+      "title": "My GitHub Projects",
+      "description": "Only show the public works",
+      "filter-label": "Filter by Programming Language",
+      "all-languages": "All Languages",
+      "filter-help": "Filter the project list by programming language. Select \"All Languages\" to see all projects.",
+      "loading-more": "Loading more projects...",
+      "showing-projects": "Showing {{count}} projects",
+      "projects-list": "GitHub projects",
+      "no-description": "No description available",
+      "main-language": "Main language:",
+      "updated": "Updated {{time}}",
+      "no-updates": "No updates",
+      "stars": "stars",
+      "forks": "forks",
+      "project-technologies": "Project technologies",
+      "project-statistics": "Project statistics",
+      "more-technologies": "{{count}} more technologies",
+      "view-on-github": "View project {{name}} on GitHub (opens in new tab)",
+      "error-loading": "Error Loading Projects"
+    },
+
+    "loading-section": {
+      "title": "Loading Portfolio",
+      "initializing": "Initializing...",
+      "loading-components": "Loading components...",
+      "preparing-content": "Preparing content...",
+      "configuring-animations": "Configuring animations...",
+      "almost-ready": "Almost ready...",
+      "completed": "Completed",
+      "progress-status": "{{step}} {{progress}}% completed",
+      "click-to-continue": "Press Enter or click to continue",
+      "preparing": "Preparing content...",
+      "percent-completed": "{{progress}} percent completed"
+    },
+
+    "language-toggle": {
+      "changed-to-spanish": "Idioma cambiado a Español",
+      "changed-to-english": "Language changed to English",
+      "switch-to-spanish": "Cambiar a Español",
+      "switch-to-english": "Switch to English"
+    },
+
+    "navbar": {
+      "skip-to-content": "Skip to main content",
+      "main-navigation": "Main navigation",
+      "go-to-home": "Go to home page",
+      "go-to-about": "Go to About section",
+      "go-to-projects": "Go to Projects section",
+      "go-to-contact": "Go to Contact section",
+      "go-to-skills": "Go to Skills section",
+      "home": "Home",
+      "about": "About",
+      "projects": "Projects",
+      "contact": "Contact",
       "skills": "Skills"
+    },
+    "common": {
+      "image-load-error": "Error loading image"
     }
   }
