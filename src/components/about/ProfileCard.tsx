@@ -9,12 +9,14 @@ interface ProfileCardProps {
     isHovered: boolean;
     title: string;
     description: string;
+    imageContext: 'profile' | 'project' | 'skill' | 'hero' | 'decorative';
 }
 
 export function ProfileCard(
-    { onOpenModal, onHoverChange, isHovered, title, description, image }:ProfileCardProps,) 
-{
-    const { t } = useTranslation();    return (
+    { onOpenModal, onHoverChange, isHovered, title, description, image, imageContext }: ProfileCardProps,
+) {
+    const { t } = useTranslation();
+    return (
         <div
             className="relative w-full max-w-sm sm:max-w-md lg:max-w-96 rounded-xl overflow-hidden cursor-pointer shadow-2xl transition-all duration-300 hover:shadow-red-500/20 mx-auto my-4 sm:my-6 lg:my-8"
             onMouseEnter={() => onHoverChange(true)}
@@ -23,7 +25,8 @@ export function ProfileCard(
         >
             <OptimizedImage
                 src={image}
-                alt={title}
+                alt={description} // Usar descripción para un alt más detallado
+                context={imageContext}
                 responsive={true}
                 aspectRatio="square"
                 className="w-full h-64 sm:h-80 lg:h-96"

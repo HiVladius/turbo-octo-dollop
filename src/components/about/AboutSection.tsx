@@ -12,18 +12,18 @@ import { useAppStore, useModalStore } from "../../store";
 export function AboutSection() {
   const { t } = useTranslation();
 
-  // App store
   const setCurrentSection = useAppStore((state) => state.setCurrentSection);
-
-  // Modal store
   const { openModal, closeModal, setHover, isModalOpen, isHovered } =
     useModalStore();
+
   useEffect(() => {
     setCurrentSection("about");
   }, [setCurrentSection]);
+
   const handleCloseModal = () => {
     closeModal();
   };
+
   return (
     <div className="about-section min-h-screen bg-black text-white">
       <ResponsiveContainer className="flex flex-col min-h-screen bg-black text-white py-8 gap-4 sm:gap-6 lg:gap-8 items-center justify-center text-center">
@@ -45,7 +45,8 @@ bg-clip-text text-transparent">
                 isHovered={isHovered("profile")}
                 title={t("about-section.resumen_profesional")}
                 description={t("about-section.res-1")}
-              />{" "}
+                imageContext="profile"
+              />
               <ModalProfile
                 isOpen={isModalOpen("profile")}
                 image={image}
@@ -55,7 +56,7 @@ bg-clip-text text-transparent">
                 secondLine={t("about-section.res-2.1")}
                 thirdLine={t("about-section.res-2.2")}
               />
-            </div>{" "}
+            </div>
             <div className="flex justify-center mb-8 sm:mb-10 lg:mb-12">
               <ProfileCard
                 onOpenModal={() => openModal("hobbies")}
@@ -64,7 +65,8 @@ bg-clip-text text-transparent">
                 isHovered={isHovered("hobbies")}
                 title={t("hobbies-section.my hobbies")}
                 description={t("hobbies-section.hobbies")}
-              />{" "}
+                imageContext="decorative"
+              />
               <ModalProfile
                 isOpen={isModalOpen("hobbies")}
                 onClose={handleCloseModal}
@@ -110,7 +112,7 @@ bg-clip-text text-transparent">
                   </>
                 }
               />
-            </div>{" "}
+            </div>
             <div className="flex justify-center mb-8 sm:mb-10 lg:mb-12">
               <ProfileCard
                 onOpenModal={() => openModal("goals")}
@@ -119,7 +121,8 @@ bg-clip-text text-transparent">
                 isHovered={isHovered("goals")}
                 title={t("goals-section.my goals")}
                 description={t("goals-section.goals")}
-              />{" "}
+                imageContext="decorative"
+              />
               <ModalProfile
                 isOpen={isModalOpen("goals")}
                 onClose={handleCloseModal}
