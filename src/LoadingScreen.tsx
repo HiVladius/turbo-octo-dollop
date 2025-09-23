@@ -1,20 +1,34 @@
 import { useState, useEffect, useRef } from 'react';
 import { Code } from 'lucide-react';
 import { gsap } from 'gsap';
+import { useTranslation } from 'react-i18next';
 
 interface LoadingScreenProps {
   onComplete?: () => void;
 }
 
 export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
+  const { t } = useTranslation();
   const [progress, setProgress] = useState(0);
   const [isAnimating, setIsAnimating] = useState(true);
   const [isComplete, setIsComplete] = useState(false);
+  const [currentStep, setCurrentStep] = useState(t("loading-section.initializing"));
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
+  const statusRef = useRef<HTMLDivElement>(null);
+
+  // Steps for screen reader announcements
+  const loadingSteps = [
+    t("loading-section.initializing"),
+    t("loading-section.loading-components"),
+    t("loading-section.preparing-content"),
+    t("loading-section.configuring-animations"),
+    t("loading-section.almost-ready"),
+    t("loading-section.completed")
+  ];
 
   // Animación de entrada con GSAP
   useEffect(() => {
@@ -49,7 +63,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
   }, []);
 
   // Animación de progreso con GSAP
-   useEffect(() => {
+  useEffect(() => {
     const progressObj = { value: 0 };
     
     const tl = gsap.timeline();
@@ -58,12 +72,23 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
       duration: 3,
       ease: "power2.out",
       onUpdate: () => {
-        setProgress(Math.round(progressObj.value));
+        const newProgress = Math.round(progressObj.value);
+        setProgress(newProgress);
+        
+        // Update loading step based on progress
+        const stepIndex = Math.floor((newProgress / 100) * (loadingSteps.length - 1));
+        const currentStepText = loadingSteps[stepIndex] || loadingSteps[0];
+        
+        if (currentStepText !== currentStep) {
+          setCurrentStep(currentStepText);
+        }
       },
       onComplete: () => {
+        setCurrentStep('Completado');
         setIsComplete(true);
+        
         // Animar el texto para indicar que puede hacer click
-        const textElement = contentRef.current?.querySelector('p');
+        const textElement = contentRef.current?.querySelector('[data-click-hint]');
         if (textElement) {
           gsap.to(textElement, {
             opacity: 1,
@@ -80,7 +105,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
     return () => {
       tl.kill();
     };
-  }, []);
+  }, [currentStep, loadingSteps]);
 
 
   // Configurar canvas y partículas
@@ -192,9 +217,20 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
   }, [isAnimating]);
 
   const handleClick = () => {
+    if (!isComplete) return;
+    completeLoading();
+  };
 
-    if(!isComplete) return;
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (!isComplete) return;
+    
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      completeLoading();
+    }
+  };
 
+  const completeLoading = () => {
     setIsAnimating(false);
     
     // Animación de salida con GSAP
@@ -228,25 +264,69 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
   return (
     <div 
       ref={containerRef}
-      className="fixed inset-0 bg-black flex flex-col items-center justify-center cursor-pointer z-50"
+      className="fixed inset-0 bg-black flex flex-col items-center justify-center z-50"
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      tabIndex={isComplete ? 0 : -1}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="loading-title"
+      aria-describedby="loading-description"
     >
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full"
+        aria-hidden="true"
       />
       
+      {/* Screen reader announcements */}
+      <div 
+        ref={statusRef}
+        aria-live="polite" 
+        aria-atomic="true" 
+        className="sr-only"
+      >
+        {currentStep} {progress}% completado
+      </div>
+      
       <div ref={contentRef} className="relative z-10 flex flex-col items-center">
-        <Code size={64} className="text-red-600 animate-pulse mb-8" />
+        <Code 
+          size={64} 
+          className="text-red-600 animate-pulse mb-8" 
+          aria-hidden="true"
+        />
         
         <div className="text-white text-center mb-6">
-          <h2 className="text-2xl font-bold mb-2">Cargando Portfolio</h2>
-          <p className="text-gray-400">Haz click para continuar</p>
+          <h1 
+            id="loading-title"
+            className="text-2xl font-bold mb-2"
+          >
+            {t("loading-section.title")}
+          </h1>
+          <p 
+            id="loading-description"
+            data-click-hint
+            className={`text-gray-400 transition-opacity duration-300 ${
+              isComplete ? 'opacity-100' : 'opacity-60'
+            }`}
+          >
+            {isComplete 
+              ? t("loading-section.click-to-continue")
+              : t("loading-section.preparing")
+            }
+          </p>
         </div>
       </div>
 
       <div ref={progressRef} className="relative z-10 flex flex-col items-center">
-        <div className="w-64 h-2 bg-gray-800 rounded-full overflow-hidden">
+        <div 
+          className="w-64 h-2 bg-gray-800 rounded-full overflow-hidden"
+          role="progressbar"
+          aria-valuenow={progress}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-label={`Progreso de carga: ${progress}%`}
+        >
           <div 
             ref={progressBarRef}
             className="h-full bg-gradient-to-r from-red-600 to-pink-600 transition-all duration-300"
@@ -255,7 +335,13 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
         </div>
         
         <div className="mt-2 text-red-400 font-mono text-sm">
-          {progress}%
+          <span aria-label={`${progress} por ciento completado`}>
+            {progress}%
+          </span>
+        </div>
+        
+        <div className="mt-1 text-gray-500 text-xs">
+          {currentStep}
         </div>
       </div>
     </div>

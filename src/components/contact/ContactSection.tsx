@@ -38,8 +38,23 @@ export function ContactSection() {
   useEffect(() => {
     setCurrentSection("contact");
   }, [setCurrentSection]);
+  
   const commonInputClass =
-    "w-full px-4 sm:px-5 py-3 sm:py-4 bg-black/50 rounded-xl border border-gray-800 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all duration-200 text-sm sm:text-base placeholder-gray-400 min-h-[44px] touch-manipulation";
+    "w-full px-4 sm:px-5 py-3 sm:py-4 bg-black/50 rounded-xl border border-gray-800 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all duration-200 text-sm sm:text-base placeholder-gray-500/50 min-h-[44px] touch-manipulation";
+
+  const getInputClass = (fieldName: keyof typeof formData, hasError: boolean) => {
+    let baseClass = commonInputClass;
+    
+    if (hasError && formData[fieldName] && formData[fieldName].length > 0) {
+      // Error: rojo sutil
+      return baseClass.replace('border-gray-800', 'border-red-400/60').replace('bg-black/50', 'bg-red-950/20') + ' focus:border-red-400 focus:ring-red-400/30';
+    } else if (formData[fieldName] && formData[fieldName].length > 0 && !hasError) {
+      // Válido: verde sutil  
+      return baseClass.replace('border-gray-800', 'border-green-400/40').replace('bg-black/50', 'bg-green-950/10') + ' focus:border-green-400 focus:ring-green-400/20';
+    }
+    
+    return baseClass;
+  };
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -88,111 +103,157 @@ export function ContactSection() {
     } catch (error) {
       const errorMessage = error instanceof Error
         ? error.message
-        : "Error desconocido";
+        : t("contact-section.unknown-error");
       toast.error(errorMessage);
       console.error("Error al enviar el email", error);
     }
   };
   return (
-    <div className="min-h-screen bg-black text-white px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex flex-col items-center justify-center">
-      <h1
-        className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-10 lg:mb-12 animate-fade-in flex items-center gap-2
-    bg-gradient-to-r from-red-500 via-pink-500 to-yellow-400
-    bg-clip-text text-transparent text-center"
-        style={{
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-        }}
+    <main className="min-h-screen bg-black text-white px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex flex-col items-center justify-center">
+      <header>
+        <h1
+          id="contact-heading"
+          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-10 lg:mb-12 animate-fade-in flex items-center gap-2
+      bg-gradient-to-r from-red-500 via-pink-500 to-yellow-400
+      bg-clip-text text-transparent text-center"
+          style={{
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+        >
+          {t("contact-section.contact")}
+        </h1>
+      </header>
+      
+      <section 
+        aria-labelledby="contact-heading"
+        className="w-full max-w-4xl mx-auto bg-zinc-900/50 rounded-xl p-4 sm:p-6 lg:p-8 shadow-xl"
       >
-        {t("contact-section.contact")}
-      </h1>
-      <div className="w-full max-w-4xl mx-auto bg-zinc-900/50 rounded-xl p-4 sm:p-6 lg:p-8 shadow-xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-          <div className="space-y-4 sm:space-y-6 lg:space-y-8 order-2 lg:order-1">
-            <h2 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4">
+          <aside className="space-y-4 sm:space-y-6 lg:space-y-8 order-2 lg:order-1">
+            <h2 
+              id="social-heading"
+              className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4"
+            >
               {t("contact-section.social-media")}
             </h2>
-            {contactMethods.map(({ Icon, href, label }) => (
-              <div key={label} className="flex items-center gap-3 sm:gap-4">
-                <Icon className="text-red-500 flex-shrink-0" size={20} />
-                <a
-                  href={href}
-                  target={href.startsWith("http") ? "_blank" : undefined}
-                  rel={href.startsWith("http")
-                    ? "noopener noreferrer"
-                    : undefined}
-                  className="hover:text-red-500 transition-colors text-sm sm:text-base break-all"
-                >
-                  {label}
-                </a>
-              </div>
-            ))}
-          </div>
+            <nav aria-labelledby="social-heading">
+              <ul role="list" className="space-y-4">
+                {contactMethods.map(({ Icon, href, label }) => (
+                  <li key={label} className="flex items-center gap-3 sm:gap-4">
+                    <Icon 
+                      className="text-red-500 flex-shrink-0" 
+                      size={20}
+                      aria-hidden="true"
+                    />
+                    <a
+                      href={href}
+                      target={href.startsWith("http") ? "_blank" : undefined}
+                      rel={href.startsWith("http")
+                        ? "noopener noreferrer"
+                        : undefined}
+                      className="hover:text-red-500 transition-colors text-sm sm:text-base break-all focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-black rounded"
+                      aria-label={`Contactar por ${Icon.name === 'Mail' ? 'correo electrónico' : Icon.name}`}
+                    >
+                      {label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </aside>
 
           <form
             className="space-y-4 order-1 lg:order-2"
             onSubmit={handleSubmit}
+            noValidate
+            aria-labelledby="form-heading"
           >
-            {[
-              { id: "name", type: "text", label: t("contact-section.name") },
-            ].map(({ id, type, label }) => (
-              <div key={id}>
+            <fieldset>
+              <legend id="form-heading" className="sr-only">
+                Formulario de contacto
+              </legend>
+              
+              {/* Live region para anuncios del formulario */}
+              <div aria-live="polite" aria-atomic="true" className="sr-only" id="form-status">
+              </div>
+              <div>
                 <label
-                  htmlFor={id}
+                  htmlFor="name"
                   className="block text-sm font-medium text-gray-400 mb-1"
                 >
-                  {label}
+                  {t("contact-section.name")} <span aria-hidden="true" className="text-red-400/60">*</span>
                 </label>
                 <input
-                  type={type}
+                  type="text"
                   name="name"
-                  id={id}
-                  className={commonInputClass}
+                  id="name"
+                  className={getInputClass('name', !!getFieldErrors().name)}
                   required
-                  minLength={10}
+                  minLength={2}
                   value={formData.name}
                   onChange={handleInputChange}
                   disabled={isSubmitting}
+                  aria-invalid={getFieldErrors().name ? 'true' : 'false'}
+                  aria-required="true"
+                  placeholder={t("contact-section.name-placeholder")}
                 />
               </div>
-            ))}
 
             <div>
               <label
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-400 mb-1"
               >
-                {t("contact-section.email")}
+                {t("contact-section.email")} <span aria-hidden="true" className="text-red-400/60">*</span>
               </label>
               <input
                 type="email"
                 name="email"
                 id="email"
-                className={commonInputClass}
+                className={getInputClass('email', !!getFieldErrors().email)}
                 value={formData.email}
                 onChange={handleInputChange}
                 disabled={isSubmitting}
                 required
+                aria-invalid={getFieldErrors().email ? 'true' : 'false'}
+                aria-required="true"
+                autoComplete="email"
+                placeholder={t("contact-section.email-placeholder")}
               />
             </div>
+
             <div>
               <label
                 htmlFor="message"
                 className="block text-sm font-medium text-gray-400 mb-1"
               >
-                {t("contact-section.message")}
-                {" "}
+                {t("contact-section.message")} <span aria-hidden="true" className="text-red-400/60">*</span>
               </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={4}
-                className={`${commonInputClass} resize-none`}
-                value={formData.message}
-                onChange={handleInputChange}
-                disabled={isSubmitting}
-                required
-              />
+              <div className="relative">
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={4}
+                  className={`${getInputClass('message', !!getFieldErrors().message)} resize-none`}
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  disabled={isSubmitting}
+                  required
+                  aria-invalid={getFieldErrors().message ? 'true' : 'false'}
+                  aria-required="true"
+                  placeholder={t("contact-section.message-placeholder")}
+                />
+                
+                {/* Contador de caracteres - siempre visible */}
+                <div className={`absolute bottom-2 right-3 text-xs transition-colors ${
+                  formData.message.length < 10 
+                    ? 'text-red-400/60' 
+                    : 'text-green-400/60'
+                }`}>
+                  {formData.message.length}/10
+                </div>
+              </div>
             </div>
             <Toaster
               toastOptions={{
@@ -217,12 +278,19 @@ export function ContactSection() {
               variant="primary"
               size="lg"
               className="w-full"
+              aria-describedby="submit-help"
             >
               {t("contact-section.send")}
             </ResponsiveButton>
+            
+            <div id="submit-help" className="sr-only">
+              {isSubmitting ? t("contact-section.sending") : t("contact-section.send-help")}
+            </div>
+            
+            </fieldset>
           </form>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

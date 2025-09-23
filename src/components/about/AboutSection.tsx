@@ -12,18 +12,18 @@ import { useAppStore, useModalStore } from "../../store";
 export function AboutSection() {
   const { t } = useTranslation();
 
-  // App store
   const setCurrentSection = useAppStore((state) => state.setCurrentSection);
-
-  // Modal store
   const { openModal, closeModal, setHover, isModalOpen, isHovered } =
     useModalStore();
+
   useEffect(() => {
     setCurrentSection("about");
   }, [setCurrentSection]);
+
   const handleCloseModal = () => {
     closeModal();
   };
+
   return (
     <div className="about-section min-h-screen bg-black text-white">
       <ResponsiveContainer className="flex flex-col min-h-screen bg-black text-white py-8 gap-4 sm:gap-6 lg:gap-8 items-center justify-center text-center">
@@ -45,7 +45,8 @@ bg-clip-text text-transparent">
                 isHovered={isHovered("profile")}
                 title={t("about-section.resumen_profesional")}
                 description={t("about-section.res-1")}
-              />{" "}
+                imageContext="profile"
+              />
               <ModalProfile
                 isOpen={isModalOpen("profile")}
                 image={image}
@@ -55,7 +56,7 @@ bg-clip-text text-transparent">
                 secondLine={t("about-section.res-2.1")}
                 thirdLine={t("about-section.res-2.2")}
               />
-            </div>{" "}
+            </div>
             <div className="flex justify-center mb-8 sm:mb-10 lg:mb-12">
               <ProfileCard
                 onOpenModal={() => openModal("hobbies")}
@@ -64,7 +65,8 @@ bg-clip-text text-transparent">
                 isHovered={isHovered("hobbies")}
                 title={t("hobbies-section.my hobbies")}
                 description={t("hobbies-section.hobbies")}
-              />{" "}
+                imageContext="decorative"
+              />
               <ModalProfile
                 isOpen={isModalOpen("hobbies")}
                 onClose={handleCloseModal}
@@ -75,20 +77,25 @@ bg-clip-text text-transparent">
                     <h3 className="text-lg font-semibold mb-2">
                       {t("hobbies-section.hobbies-1")}
                     </h3>
-                    <ul className="list-disc ml-6 space-y-1">
-                      <br />
-                      <p>
-                        <strong>{t("hobbies-section.hobbies-1.1")}</strong>
-                      </p>
-                      {t("hobbies-section.hobbies-1.2")}
-
-                      <br />
-                      <p>
-                        <strong>{t("hobbies-section.hobbies-2")}</strong>
-                      </p>
-
-                      {t("hobbies-section.hobbies-2.1")}
-                    </ul>
+                    <div className="space-y-3">
+                      <div>
+                        <p className="font-semibold">
+                          {t("hobbies-section.hobbies-1.1")}
+                        </p>
+                        <p className="text-sm">
+                          {t("hobbies-section.hobbies-1.2")}
+                        </p>
+                      </div>
+                      
+                      <div>
+                        <p className="font-semibold">
+                          {t("hobbies-section.hobbies-2")}
+                        </p>
+                        <p className="text-sm">
+                          {t("hobbies-section.hobbies-2.1")}
+                        </p>
+                      </div>
+                    </div>
                   </>
                 }
                 thirdLine={
@@ -96,14 +103,16 @@ bg-clip-text text-transparent">
                     <h3 className="text-lg font-semibold mb-2">
                       {t("hobbies-section.hobbies-4")}
                     </h3>
-                    <ul className="list-disc ml-6 space-y-1">
-                      <strong>{t("hobbies-section.hobbies-4.1")}</strong>{" "}
-                      {t("hobbies-section.hobbies-4.2")}
-                    </ul>
+                    <div className="space-y-2">
+                      <p>
+                        <span className="font-semibold">{t("hobbies-section.hobbies-4.1")}</span>{" "}
+                        {t("hobbies-section.hobbies-4.2")}
+                      </p>
+                    </div>
                   </>
                 }
               />
-            </div>{" "}
+            </div>
             <div className="flex justify-center mb-8 sm:mb-10 lg:mb-12">
               <ProfileCard
                 onOpenModal={() => openModal("goals")}
@@ -112,7 +121,8 @@ bg-clip-text text-transparent">
                 isHovered={isHovered("goals")}
                 title={t("goals-section.my goals")}
                 description={t("goals-section.goals")}
-              />{" "}
+                imageContext="decorative"
+              />
               <ModalProfile
                 isOpen={isModalOpen("goals")}
                 onClose={handleCloseModal}
@@ -123,10 +133,12 @@ bg-clip-text text-transparent">
                     <h3 className="text-lg font-semibold mb-2">
                       {t("goals-section.goals-1")}
                     </h3>
-                    <ul className="list-disc ml-6 space-y-1">
-                      <strong>{t("goals-section.goals-1.1")}</strong>{" "}
-                      {t("goals-section.goals-1.2")}
-                    </ul>
+                    <div className="space-y-2">
+                      <p>
+                        <span className="font-semibold">{t("goals-section.goals-1.1")}</span>{" "}
+                        {t("goals-section.goals-1.2")}
+                      </p>
+                    </div>
                   </>
                 }
               />

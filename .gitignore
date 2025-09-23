@@ -31,3 +31,5 @@ dist-ssr
 
 # Other files
 mcp-servers
+
+.firebase/
