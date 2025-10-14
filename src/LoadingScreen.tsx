@@ -105,7 +105,8 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
     return () => {
       tl.kill();
     };
-  }, [currentStep, loadingSteps]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentStep]);
 
 
   // Configurar canvas y partículas

@@ -65,6 +65,7 @@ export const Portfolio = () => {
     // Aquí irían las cargas de datos
     // Una vez completadas, llamamos a handleLoadingComplete
     handleLoadingComplete();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isLoading) {

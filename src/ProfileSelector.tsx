@@ -228,7 +228,7 @@ export function ProfileSelector() {
     const profileTitle = profiles.find(p => p.id === profileId)?.title || profileId;
     setAnnounceText(`Navegando a ${profileTitle}`);
     
-    setCurrentSection(profileId as any);
+    setCurrentSection(profileId as 'home' | 'about' | 'projects' | 'contact');
     navigate(`/${profileId}`);
     
     // Limpiar anuncio después de un momento

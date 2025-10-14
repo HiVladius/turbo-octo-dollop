@@ -1,7 +1,8 @@
 import { t } from "i18next";
 import { useEffect } from "react";
 import { useAppStore } from "../../store";
-import { SkillCard, skillsData } from './SkillCard';
+import { SkillCard } from './SkillCard';
+import { skillsData } from './skillsData';
 import { GitHubStyleProgress } from './GitHubStyleProgress';
 
 export const Skills = () => {

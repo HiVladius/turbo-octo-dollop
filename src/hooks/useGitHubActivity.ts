@@ -8,7 +8,7 @@ interface GitHubEvent {
   repo: {
     name: string;
   };
-  payload: any;
+  payload: Record<string, unknown>;
 }
 
 interface ContributionDay {
@@ -16,6 +16,12 @@ interface ContributionDay {
   level: number; // 0-4 (sin actividad a máxima actividad)
   count: number;
   skill?: string;
+}
+
+interface CommitData {
+  date: string;
+  repo: string;
+  message: string;
 }
 
 export const useGitHubActivity = () => {
@@ -113,25 +119,28 @@ export const useGitHubActivity = () => {
             per_page: 50, // Reducir número de commits por repo
           });
 
-          return commitsResponse.data.map((commit: any) => ({
-            date: commit.commit.author.date,
-            repo: repo.name,
-            message: commit.commit.message,
-          }));
-        } catch (error: any) {
+          return commitsResponse.data
+            .filter((commit) => commit.commit?.author?.date) // Filtrar commits sin fecha
+            .map((commit): CommitData => ({
+              date: commit.commit.author!.date!,
+              repo: repo.name,
+              message: commit.commit.message || '',
+            }));
+        } catch (error) {
           // Manejo específico de diferentes tipos de errores
-          if (error.status === 409) {
+          const err = error as { status?: number; message?: string };
+          if (err.status === 409) {
             console.warn(`Repositorio ${repo.name} está vacío o tiene conflictos`);
-          } else if (error.status === 403) {
+          } else if (err.status === 403) {
             console.warn(`Rate limit alcanzado para ${repo.name}`);
           } else {
-            console.warn(`No se pudieron obtener commits para ${repo.name}:`, error.message);
+            console.warn(`No se pudieron obtener commits para ${repo.name}:`, err.message);
           }
           return [];
         }
       });
 
-      const allCommits = (await Promise.all(commitPromises)).flat();
+      const allCommits: CommitData[] = (await Promise.all(commitPromises)).flat();
 
       // Procesar commits
       allCommits.forEach((commit) => {
@@ -221,6 +230,7 @@ export const useGitHubActivity = () => {
 
   useEffect(() => {
     fetchGitHubActivity();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {

@@ -99,7 +99,7 @@ export function OptimizedImage({
                 });
 
                 setImageSrc(webPSrc);
-            } catch (error) {
+            } catch {
                 // Si hay algún error, mantener la imagen original
                 console.log('WebP no soportado o imagen no disponible, usando formato original');
                 setImageSrc(src);
