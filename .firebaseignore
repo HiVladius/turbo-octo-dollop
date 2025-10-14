@@ -1,0 +1,41 @@
+# Firebase ignore file
+# Files to exclude from deploy
+
+# Hidden files
+.*
+!.well-known
+
+# IDEs
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Dependencies
+node_modules
+
+# Build artifacts (except dist)
+*.log
+*.pid
+*.seed
+*.lock
+
+# Source code (only deploy dist)
+src/
+scripts/
+microfrontends/
+public/
+documents/
+
+# Config files
+package.json
+package-lock.json
+tsconfig.json
+vite.config.ts
+README.md
+*.md

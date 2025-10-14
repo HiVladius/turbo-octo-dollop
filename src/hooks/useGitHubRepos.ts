@@ -89,7 +89,7 @@ export const useGitHubRepos = (options: UseGitHubReposOptions = {}) =>{
               );
               image_url = `https://raw.githubusercontent.com/${repo.owner.login}/${repo.name}/main/${img}`;
               break;
-            } catch (e) {
+            } catch {
               // Si no existe, sigue buscando
             }
           }
@@ -126,6 +126,7 @@ export const useGitHubRepos = (options: UseGitHubReposOptions = {}) =>{
   // Carga inicial
   useEffect(() => {
     fetchRepos(initialPage, true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Configuración del IntersectionObserver para scroll infinito
@@ -155,6 +156,7 @@ export const useGitHubRepos = (options: UseGitHubReposOptions = {}) =>{
     if (page > initialPage) {
       fetchRepos(page);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   // Obtener lenguajes únicos de los repositorios

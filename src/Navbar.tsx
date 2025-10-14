@@ -14,7 +14,7 @@ export function Navbar() {
   if (isHome) return null;
 
   const handleNavigation = (section: string) => {
-    setCurrentSection(section as any);
+    setCurrentSection(section as 'home' | 'about' | 'projects' | 'contact');
     // Forzar el blur del elemento activo para ocultar tooltips
     setTimeout(() => {
       if (document.activeElement instanceof HTMLElement) {

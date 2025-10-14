@@ -42,8 +42,8 @@ export function ContactSection() {
   const commonInputClass =
     "w-full px-4 sm:px-5 py-3 sm:py-4 bg-black/50 rounded-xl border border-gray-800 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all duration-200 text-sm sm:text-base placeholder-gray-500/50 min-h-[44px] touch-manipulation";
 
-  const getInputClass = (fieldName: keyof typeof formData, hasError: boolean) => {
-    let baseClass = commonInputClass;
+  const getInputClass = (fieldName: keyof typeof formData, hasError: boolean): string => {
+    const baseClass = commonInputClass;
     
     if (hasError && formData[fieldName] && formData[fieldName].length > 0) {
       // Error: rojo sutil
