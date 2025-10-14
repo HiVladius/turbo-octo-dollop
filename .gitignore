@@ -46,3 +46,6 @@ firebase.json.local
 *.md
 *.ps1
 *.sh
+
+#carpeta
+secrets
