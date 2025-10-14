@@ -7,7 +7,12 @@ interface BlogMicrofrontendProps {
   onClose: () => void;
 }
 
+// URL del blog según el ambiente
+// Development: http://localhost:4200
+// Staging: https://porfolio-vlad-staging.web.app/blog
+// Production: https://porfolio-vlad.web.app/blog
 const BLOG_URL = import.meta.env.VITE_BLOG_URL || 'http://localhost:4200';
+// const BLOG_URL = 'http://localhost:4200'
 
 export const BlogMicrofrontend: React.FC<BlogMicrofrontendProps> = ({ isOpen, onClose }) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);

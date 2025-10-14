@@ -37,6 +37,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/blog/",
               "budgets": [
                 {
                   "type": "initial",
@@ -52,6 +53,7 @@
               "outputHashing": "all"
             },
             "development": {
+              "baseHref": "/",
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true

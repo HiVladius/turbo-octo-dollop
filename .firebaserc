@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "porfolio-vlad"
-  }
+    "default": "porfolio-vlad",
+    "production": "porfolio-vlad",
+    "staging": "porfolio-vlad-staging"
+  },
+  "etags": {}
 }

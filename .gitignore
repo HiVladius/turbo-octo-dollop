@@ -33,3 +33,16 @@ dist-ssr
 mcp-servers
 
 .firebase/
+
+
+# Firebase cache files
+.firebaserc
+firebase.json
+.firebaserc.local
+firebase.json.local
+
+
+# Todos los archivos .md
+*.md
+*.ps1
+*.sh

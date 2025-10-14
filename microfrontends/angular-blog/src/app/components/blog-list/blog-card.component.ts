@@ -23,7 +23,7 @@ import { BlogPost } from '../../models/blog-post.model';
         </div>
         <div class="blog-card__footer">
           <span class="author">Por {{ post().author }}</span>
-          <a [routerLink]="['/post', post().id]" class="read-more">Leer más →</a>
+          <a [routerLink]="['post', post().id]" class="read-more">Leer más →</a>
         </div>
       </div>
     </article>
