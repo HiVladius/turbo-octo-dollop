@@ -12,11 +12,11 @@ export interface SendMailResponse {
     message: string;
 }
 
-const mail = import.meta.env.VITE_EMAIL_SERVICE.toString();
+const mail = import.meta.env.VITE_EMAIL_SERVICE
 
 export const sendMail = async (mailData: MailData): Promise<SendMailResponse> => {
     try {
-        const response = await fetch(mail, {
+        const response = await fetch(mail as string, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

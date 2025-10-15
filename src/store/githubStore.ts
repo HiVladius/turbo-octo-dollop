@@ -200,7 +200,13 @@ export const useGitHubStore = create<GitHubState>((set, get) => ({
 declare global {
   interface ImportMetaEnv {
     VITE_GITHUB_KEY: string | undefined;
-    // agrega aquí otras variables si las usas
+    VITE_BLOG_URL: string | undefined;
+    VITE_EMAIL: string | undefined;
+    VITE_EMAIL_PASS: string | undefined;
+    VITE_EMAIL_SERVICE: string | undefined;
+    VITE_EMAIL_TO: string | undefined;
+    VITE_EMAIL_FROM: string | undefined;
+    
   }
   interface ImportMeta {
     readonly env: ImportMetaEnv;

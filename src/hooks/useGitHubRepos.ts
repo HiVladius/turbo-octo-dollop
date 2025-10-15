@@ -42,7 +42,7 @@ export const useGitHubRepos = (options: UseGitHubReposOptions = {}) =>{
     try {
       setLoading(true);
       const octokit = new Octokit({
-        auth: import.meta.env.VITE_GITHUB_KEY,
+        auth: import.meta.resolve,
       });
 
       const response = await octokit.request("GET /user/repos", {
