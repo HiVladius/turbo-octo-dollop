@@ -3,8 +3,8 @@ import { persist } from 'zustand/middleware';
 import { sendMail, MailData, SendMailResponse } from '../helpers/sendmail';
 
 
-const to = import.meta.env.VITE_EMAIL_TO?.toString()
-const from = import.meta.env.VITE_EMAIL_FROM?.toString() 
+const to = import.meta.env.VITE_EMAIL_TO
+const from = import.meta.env.VITE_EMAIL_FROM
 
 interface ContactFormData {
   name: string;
@@ -87,8 +87,8 @@ export const useContactStore = create<ContactState>()(
         
         try {
           const mailData: MailData = {
-            from:  from,
-            to: to,
+            from:  from as string,
+            to: to as string,
             subject: `Nuevo mensaje de ${state.formData.name}`,
             html: `
               <h2>Nuevo mensaje desde el portafolio</h2>

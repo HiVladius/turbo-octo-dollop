@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import logo from '../../assets/logo2-removebg.png'
+import logo from '../../assets/logo2-removebg.png';
 
 
 export const LoadingSpinner = () => (

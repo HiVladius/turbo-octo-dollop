@@ -96,8 +96,8 @@ export function ContactSection() {
 
     try {
       await submitForm({
-        from: VITE_EMAIL_PASS,
-        to: [VITE_EMAIL],
+        from: VITE_EMAIL_PASS as string,
+        to: [VITE_EMAIL as string],
       });
       toast.success(t("contact-section.send-message"));
     } catch (error) {

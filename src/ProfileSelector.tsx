@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { JSX, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { gsap } from "gsap";
 
-import logo from "../src/assets/logo2-removebg.png";
+import logo from "./assets/logo2-removebg.png";
 import { useAppStore, useLanguageStore } from "./store";
 import "./styles/gsap-effects.css";
 

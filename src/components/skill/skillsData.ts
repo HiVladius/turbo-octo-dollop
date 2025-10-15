@@ -14,7 +14,7 @@ const {
     vite,
     mongodb,
     rust,
-    cloude,
+    gcp,
     vue,
 } = icons;
 
@@ -41,6 +41,6 @@ export const skillsData = [
     { name: "Tailwind CSS", icon: tailwind, level: skillLevels.avanzado },
     { name: "Vite", icon: vite, level: skillLevels.intermedio },
     { name: "Rust", icon: rust, level: skillLevels.intermedio },
-    { name: "Google Cloud", icon: cloude, level: skillLevels.intermedio },
+    { name: "Google Cloud", icon: gcp, level: skillLevels.intermedio },
     { name: "Vue.js", icon: vue, level: skillLevels.intermedio },
 ];
