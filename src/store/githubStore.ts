@@ -39,7 +39,8 @@ interface GitHubState {
 const GITHUB_CONFIG = {
   perPage: 10,
   sort: 'updated' as const,
-  visibility: 'public' as const
+  visibility: 'public' as const,
+  username: 'HiVladius' // Tu usuario de GitHub
 };
 
 export const useGitHubStore = create<GitHubState>((set, get) => ({
@@ -61,15 +62,15 @@ export const useGitHubStore = create<GitHubState>((set, get) => ({
     set({ loading: true, error: null });
     
     try {
-      const octokit = new Octokit({
-        auth: import.meta.env.VITE_GITHUB_KEY,
-      });
+      // No se necesita autenticación para repos públicos
+      const octokit = new Octokit();
 
-      const response = await octokit.request("GET /user/repos", {
+      const response = await octokit.request("GET /users/{username}/repos", {
+        username: GITHUB_CONFIG.username,
         sort: GITHUB_CONFIG.sort,
         per_page: GITHUB_CONFIG.perPage,
         page: pageNum,
-        visibility: GITHUB_CONFIG.visibility,
+        type: 'owner', // Repos del usuario
       });
 
       if (response.data.length === 0) {
@@ -77,7 +78,7 @@ export const useGitHubStore = create<GitHubState>((set, get) => ({
         return;
       }
 
-      const reposWithTopics = await Promise.all(
+      const reposWithTopics: GitHubRepo[] = await Promise.all(
         response.data.map(async (repo) => {
           try {
             const topicsResponse = await octokit.request(
@@ -91,20 +92,30 @@ export const useGitHubStore = create<GitHubState>((set, get) => ({
               },
             );
 
-            // Buscar imagen en la raíz del repo
-
             return {
-              ...repo,
-              topics: topicsResponse.data.names,
+              id: repo.id,
+              name: repo.name,
               description: repo.description ?? "",
-              
+              html_url: repo.html_url,
+              stargazers_count: repo.stargazers_count ?? 0,
+              forks_count: repo.forks_count ?? 0,
+              language: repo.language ?? null,
+              updated_at: repo.updated_at ?? null,
+              topics: topicsResponse.data.names,
+              image_url: null,
             };
           } catch (error) {
             console.error(`Error fetching data for repo ${repo.name}:`, error);
             return {
-              ...repo,
-              topics: [],
+              id: repo.id,
+              name: repo.name,
               description: repo.description ?? "",
+              html_url: repo.html_url,
+              stargazers_count: repo.stargazers_count ?? 0,
+              forks_count: repo.forks_count ?? 0,
+              language: repo.language ?? null,
+              updated_at: repo.updated_at ?? null,
+              topics: [],
               image_url: null,
             };
           }
