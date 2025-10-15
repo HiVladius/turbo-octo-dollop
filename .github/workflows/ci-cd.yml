@@ -2,7 +2,7 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, feature/** ]
+    branches: [ main, feature/**, fix/** ]
   pull_request:
     branches: [ main ]
 
@@ -161,7 +161,7 @@ jobs:
       - name: Deploy to Firebase Production
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          repoToken: ${{ secrets.VITE_GITHUB_KEY }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORFOLIO_VLAD }}
           projectId: porfolio-vlad
           channelId: live

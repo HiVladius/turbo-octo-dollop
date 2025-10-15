@@ -199,7 +199,7 @@ export const useGitHubStore = create<GitHubState>((set, get) => ({
 // Añadir declaración de tipo para import.meta.env si no existe ya en tu proyecto
 declare global {
   interface ImportMetaEnv {
-    VITE_GITHUB_KEY: string;
+    VITE_GITHUB_KEY: string | undefined;
     // agrega aquí otras variables si las usas
   }
   interface ImportMeta {
